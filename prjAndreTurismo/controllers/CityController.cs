@@ -10,7 +10,7 @@ namespace prjAndreTurismo.controllers
 {
     public class CityController
     {
-        public bool Insert(City city)
+        public int Insert(City city)
         {
             return new CityService().Insert(city);
         }
