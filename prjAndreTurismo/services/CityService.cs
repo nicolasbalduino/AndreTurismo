@@ -20,7 +20,7 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool CreateCity( City city)
+        public bool Insert( City city)
         {
             return true;
         }

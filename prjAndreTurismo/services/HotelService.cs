@@ -18,7 +18,7 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool CreateHotel()
+        public bool Insert()
         {
             return true;
         }

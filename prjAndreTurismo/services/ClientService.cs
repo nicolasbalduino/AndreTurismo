@@ -19,7 +19,7 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool CreateClient(Client client)
+        public bool Insert(Client client)
         {
             return false;
         }

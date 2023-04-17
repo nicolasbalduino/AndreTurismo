@@ -19,7 +19,7 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool CreateTicket(Ticket ticket) { return true; }
+        public bool Insert(Ticket ticket) { return true; }
 
         public bool FindAll(Ticket ticket) { return true; }
 
