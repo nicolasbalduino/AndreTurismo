@@ -36,6 +36,22 @@ namespace prjAndreTurismo.services
             return false;
         }
 
+        public Client FindByName(string name)
+        {
+            // nao usar ainda
+            string strSelect = $"SELECT c.Id, c.Name, c.Phone, c.AddressId " +
+                                $"FROM Client c WHERE c.Description = '{name}';";
+            SqlCommand commandSelect = new(strSelect, conn);
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            dr.Read();
+            Client client = new();
+            client.Id = (int)dr["Id"];
+
+            conn.Close();
+            return client;
+        }
+
         public bool UpdateClient(Client client)
         {
             return false;

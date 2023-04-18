@@ -14,5 +14,10 @@ namespace prjAndreTurismo.controllers
         {
             return new AddressService().Insert(address);
         }
+
+        public Address FindById(int id)
+        {
+            return new AddressService().FindById(id);
+        }
     }
 }

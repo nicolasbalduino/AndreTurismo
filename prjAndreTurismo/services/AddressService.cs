@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using prjAndreTurismo.controllers;
 using prjAndreTurismo.models;
 
 namespace prjAndreTurismo.services
@@ -35,6 +36,26 @@ namespace prjAndreTurismo.services
         }
 
         public bool FindAll(Address address) { return true; }
+
+        public Address FindById(int id)
+        {
+            string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
+                                $"FROM Address a WHERE a.Id = {id};";
+            SqlCommand commandSelect = new(strSelect, conn);
+            SqlDataReader dr = commandSelect.ExecuteReader();
+            dr.Read();
+
+            Address address = new();
+            address.Id = (int)dr["Id"];
+            address.Street = (string)dr["Street"];
+            address.Number = (int)dr["Number"];
+            address.Complement = (string)dr["Complement"];
+            address.Neighborhood = (string)dr["Neighborhood"];
+            address.City = new CityController().FindById((int)dr["IdCity"]);
+            address.CEP = (string)dr["PostalCode"];
+
+            return address;
+        }
 
         public bool UpdateAddress(Address address) { return true; }
 

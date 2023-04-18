@@ -13,6 +13,29 @@ using prjAndreTurismo.models;
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
+
+// listar todas as cidades
+//new CityController().FindAll().ForEach(Console.WriteLine);
+
+// procurar cidade pelo nome
+//Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
+
+// procurar cidade pelo id
+//Console.WriteLine(new CityController().FindById(6).ToString());
+
+// deletar cidade pelo id
+//if (new CityController().Delete(17) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado!");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado!");
+
+// atualizar cidade
+//string name = "Sertãozinho";
+//string newName = "Araraquara";
+//if (new CityController().UpdateCity(name, newName) > 0)
+//    Console.WriteLine("SUCESSO! Registro atualizado!");
+//else
+//    Console.WriteLine("ERRO! Registro não atualizado!");
 #endregion
 
 #region Address
@@ -30,6 +53,12 @@ using prjAndreTurismo.models;
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
+
+// procurar endereço por id
+Address address = new AddressController().FindById(2);
+if (address != null)
+    Console.WriteLine(address);
+else Console.WriteLine("Registro não encontrado");
 #endregion
 
 #region Hotel
@@ -238,30 +267,10 @@ using prjAndreTurismo.models;
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
-#endregion
 
 // listar todos os pacotes
 //new PackageController().FindAll().ForEach(Console.WriteLine);
+#endregion
 
-// listar todas as cidades
-//new CityController().FindAll().ForEach(Console.WriteLine);
 
-// procurar cidade pelo nome
-//Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
 
-// procurar cidade pelo id
-//Console.WriteLine(new CityController().FindById(6).ToString());
-
-// deletar cidade pelo id
-//if (new CityController().Delete(17) > 0)
-//    Console.WriteLine("SUCESSO! Registro deletado!");
-//else
-//    Console.WriteLine("ERRO! Registro não deletado!");
-
-// atualizar cidade
-string name = "Sertãozinho";
-string newName = "Araraquara";
-if (new CityController().UpdateCity(name, newName) > 0)
-    Console.WriteLine("SUCESSO! Registro atualizado!");
-else
-    Console.WriteLine("ERRO! Registro não atualizado!");
