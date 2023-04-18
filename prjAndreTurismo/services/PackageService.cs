@@ -50,10 +50,25 @@ namespace prjAndreTurismo.services
                 Package showPackage = new();
 
                 showPackage.Id = (int)dr["Id"];
-                showPackage.Client = new() { Name = (string)dr["client"] };
-                showPackage.Ticket.Destination.City.Description = (string)dr["destination"];
-                showPackage.Hotel.Name = (string)dr["hotel"];
-                showPackage.Price = (double)dr["Price"];
+                showPackage.Client = new()
+                {
+                    Name = (string)dr["client"],
+                };
+                showPackage.Ticket = new()
+                {
+                    Destination = new()
+                    {
+                        City = new()
+                        {
+                            Description = (string)dr["destination"],
+                        }
+                    }
+                };
+                showPackage.Hotel = new()
+                {
+                    Name = (string)dr["hotel"]
+                };
+                showPackage.Price = (decimal)dr["Price"];
 
                 packages.Add(showPackage);
             }

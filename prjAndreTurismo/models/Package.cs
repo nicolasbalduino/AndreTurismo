@@ -11,15 +11,15 @@ namespace prjAndreTurismo.models
         public int Id { get; set; }
         public Hotel Hotel { get; set; }
         public Ticket Ticket { get; set; }
-        public Double Price { get; set; }
+        public decimal Price { get; set; }
         public Client Client { get; set; }
         public DateTime Created { get; set; }
 
         public override string ToString()
         {
-            return  $"ID: {Id}" +
+            return  $"Pacote: {Id}" +
                     $"\nHotel: {Hotel.Name}" +
-                    $"\nPassagem: {Ticket.Id}" +
+                    $"\nDestino: {Ticket.Destination.City}" +
                     $"\nPreço: {Price}" +
                     $"\nCliente: {Client.Name}\n";
         }
