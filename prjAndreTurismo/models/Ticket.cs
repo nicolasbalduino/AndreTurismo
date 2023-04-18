@@ -14,5 +14,15 @@ namespace prjAndreTurismo.models
         public Client Client { get; set; }
         public DateTime Checkin { get; set; }
         public Double Price { get; set; }
+
+        public override string ToString()
+        {
+            return  $"ID: {Id}" +
+                    $"\nData de Check-In: {Checkin}" +
+                    $"\nSaida: {Origin.City.Description}" +
+                    $"\nChegada: {Destination.City.Description}" +
+                    $"\nPassageiro: {Client.Name}" +
+                    $"\nPreço da Passagem: {Price}\n";
+        }
     }
 }
