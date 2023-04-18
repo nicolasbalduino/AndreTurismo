@@ -33,9 +33,31 @@ namespace prjAndreTurismo.services
             return (int)commandInsert.ExecuteScalar();
         }
 
-        public bool FindAll(Package package)
+        public List<Package> FindAll()
         {
-            return true;
+            List<Package> packages = new();
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT p.Id, c.Name as client, cd.Description as destination, h.Name as hotel, p.Price");
+            sb.Append(" FROM Package p, Hotel h, Ticket t, Client c, Address d, City cd");
+            sb.Append(" WHERE (p.HotelId = h.Id) and (p.TicketId = t.Id) and (p.ClientId = c.Id) and (t.Destination = d.Id) and (d.IdCity = cd.Id)");
+
+            SqlCommand commandSelect = new(sb.ToString(), conn);
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            while (dr.Read())
+            {
+                Package showPackage = new();
+
+                showPackage.Id = (int)dr["Id"];
+                showPackage.Client = new() { Name = (string)dr["client"] };
+                showPackage.Ticket.Destination.City.Description = (string)dr["destination"];
+                showPackage.Hotel.Name = (string)dr["hotel"];
+                showPackage.Price = (double)dr["Price"];
+
+                packages.Add(showPackage);
+            }
+            return packages;
         }
 
         public bool UpdatePackage(Package package)

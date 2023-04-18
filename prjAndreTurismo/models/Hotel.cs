@@ -13,5 +13,12 @@ namespace prjAndreTurismo.models
         public Address Address { get; set; }
         public DateTime Created { get; set; }
         public Double Price { get; set; }
+
+        public override string ToString()
+        {
+            return  $"Hotel: {Name}" +
+                    $"\nEndenreço: {Address}" +
+                    $"\nPreço da Diária: {Price}";
+        }
     }
 }

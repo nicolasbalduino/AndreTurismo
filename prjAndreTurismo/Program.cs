@@ -239,3 +239,5 @@ using prjAndreTurismo.models;
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
 #endregion
+
+new PackageController().FindAll().ForEach(Console.WriteLine);

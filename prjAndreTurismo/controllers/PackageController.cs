@@ -14,5 +14,10 @@ namespace prjAndreTurismo.controllers
         {
             return new PackageService().Insert(package);
         }
+
+        public List<Package> FindAll()
+        {
+            return new PackageService().FindAll();
+        }
     }
 }
