@@ -59,6 +59,9 @@ namespace prjAndreTurismo.services
 
         public bool UpdateAddress(Address address) { return true; }
 
-        public bool DeleteAddress(Address address) { return true; }
+        public int Delete(int id) 
+        { 
+            return 0; 
+        }
     }
 }

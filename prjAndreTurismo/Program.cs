@@ -55,10 +55,17 @@ using prjAndreTurismo.models;
 //    Console.WriteLine("ERRO! Registro não inserido!");
 
 // procurar endereço por id
-Address address = new AddressController().FindById(2);
-if (address != null)
-    Console.WriteLine(address);
-else Console.WriteLine("Registro não encontrado");
+//Address address = new AddressController().FindById(2);
+//if (address != null)
+//    Console.WriteLine(address);
+//else Console.WriteLine("Registro não encontrado");
+
+// deletar por id
+// ainda precisa testar
+if (new AddressController().Delete(1) > 0)
+    Console.WriteLine("Registro deletado!");
+else
+    Console.WriteLine("Registro não deletado!");
 #endregion
 
 #region Hotel

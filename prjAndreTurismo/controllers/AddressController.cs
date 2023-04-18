@@ -19,5 +19,10 @@ namespace prjAndreTurismo.controllers
         {
             return new AddressService().FindById(id);
         }
+
+        public int Delete(int id)
+        {
+            return new AddressService().Delete(id);
+        }
     }
 }

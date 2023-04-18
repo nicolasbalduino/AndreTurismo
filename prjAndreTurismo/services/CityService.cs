@@ -54,6 +54,7 @@ namespace prjAndreTurismo.services
 
         public City FindByName(string name)
         {
+            conn.Open();
             string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Description = '{name}';";
             SqlCommand commandSelect = new(strSelect, conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
@@ -87,7 +88,6 @@ namespace prjAndreTurismo.services
             if (cityToEdit == null)
                 return 0;
 
-            conn.Open();
             string strUpdate = $"UPDATE City SET Description = '{newName}' WHERE Id = {cityToEdit.Id};";
             SqlCommand commandUpdate = new(strUpdate, conn);
             return commandUpdate.ExecuteNonQuery();
