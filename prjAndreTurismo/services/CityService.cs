@@ -20,12 +20,13 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public int Insert( City city)
+        public int Insert(string description)
         {
-            string strInsert = "INSERT INTO City (Description) VALUES(@Description);";
+            string strInsert = "INSERT INTO City (Description) VALUES(@Description);" +
+                                "SELECT CAST(scope_identity() as INT);";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Description", city.Description));
-            return commandInsert.ExecuteNonQuery();
+            commandInsert.Parameters.Add(new SqlParameter("@Description", description));
+            return (int) commandInsert.ExecuteScalar();
         }
 
         public bool FindAll(City city)
