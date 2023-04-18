@@ -244,4 +244,10 @@ using prjAndreTurismo.models;
 //new PackageController().FindAll().ForEach(Console.WriteLine);
 
 // listar todas as cidades
-new CityController().FindAll().ForEach(Console.WriteLine);
+//new CityController().FindAll().ForEach(Console.WriteLine);
+
+// procurar cidade pelo nome
+Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
+
+// procurar cidade pelo id
+Console.WriteLine(new CityController().FindById(6).ToString());
