@@ -87,7 +87,7 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
-            // nao funciona
+            // funciona se não estiver relacionado
             string strDelete = $"DELETE FROM City WHERE Id = {id};";
             SqlCommand commandDelete = new(strDelete, conn);
             return commandDelete.ExecuteNonQuery();

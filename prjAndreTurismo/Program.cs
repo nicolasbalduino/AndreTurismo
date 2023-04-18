@@ -6,12 +6,12 @@ using prjAndreTurismo.models;
 #region City
 //City city = new City()
 //{
-//    Description = "Monte Alto",
+//Description = "Monte Alto",
 //};
 
-//if (new CityController().Insert(city) > 0)
+//if (new CityController().Insert(city.Description) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
-//else 
+//else
 //    Console.WriteLine("ERRO! Registro não inserido!");
 #endregion
 
@@ -247,13 +247,13 @@ using prjAndreTurismo.models;
 //new CityController().FindAll().ForEach(Console.WriteLine);
 
 // procurar cidade pelo nome
-Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
+//Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
 
 // procurar cidade pelo id
-Console.WriteLine(new CityController().FindById(6).ToString());
+//Console.WriteLine(new CityController().FindById(6).ToString());
 
 // deletar cidade pelo id
-if (new CityController().Delete(6) > 0)
+if (new CityController().Delete(17) > 0)
     Console.WriteLine("SUCESSO! Registro deletado!");
-else 
+else
     Console.WriteLine("ERRO! Registro não deletado!");
