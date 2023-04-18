@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using prjAndreTurismo.models;
 
 namespace prjAndreTurismo.services
 {
@@ -18,9 +19,16 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool Insert()
+        public int Insert(Hotel hotel)
         {
-            return true;
+            string strInsert = "INSERT INTO Hotel (Name, IdAddress, Price) " +
+                                "VALUES(@Name, @IdAddress, @Price);" +
+                                "SELECT CAST(scope_identity() as INT);";
+            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+            commandInsert.Parameters.Add(new SqlParameter("@Name", hotel.Name));
+            commandInsert.Parameters.Add(new SqlParameter("@IdAddress", hotel.Address.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@Price", hotel.Price));
+            return (int)commandInsert.ExecuteScalar();
         }
 
         public bool FindAll()
