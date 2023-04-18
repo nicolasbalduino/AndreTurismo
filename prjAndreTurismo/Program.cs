@@ -96,6 +96,10 @@ Hotel hotel = new()
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
+
+// listar hoteis
+new HotelController().FindAll().ForEach(Console.WriteLine);
+
 #endregion
 
 #region Client

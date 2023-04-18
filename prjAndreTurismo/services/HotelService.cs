@@ -31,9 +31,34 @@ namespace prjAndreTurismo.services
             return (int)commandInsert.ExecuteScalar();
         }
 
-        public bool FindAll()
+        public List<Hotel> FindAll()
         {
-            return true;
+            string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
+                                "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
+                                "FROM Hotel h " +
+                                "join Address a on h.IdAddress = a.Id " +
+                                "join City c on a.IdCity = c.Id;";
+            SqlCommand commandFindAll = new SqlCommand(strSelect, conn);
+            var resultsHotel = commandFindAll.ExecuteReader();
+
+            List<Hotel> hotels = new();
+            while (resultsHotel.Read())
+            {
+                Hotel hotel = new Hotel();
+                hotel.Name = (string)resultsHotel["Name"];
+                hotel.Price = (double)(decimal)resultsHotel["Price"];
+                hotel.Address = new() { Id = (int)resultsHotel["IdAddress"] };
+                hotel.Address.Street = (string)resultsHotel["Street"];
+                hotel.Address.Number = (int)resultsHotel["Number"];
+                hotel.Address.Complement = (string)resultsHotel["Complement"];
+                hotel.Address.Neighborhood = (string)resultsHotel["Neighborhood"];
+                hotel.Address.CEP = (string)resultsHotel["PostalCode"];
+                hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
+                hotel.Address.City.Description = (string)resultsHotel["Description"];
+
+                hotels.Add(hotel);
+            }
+            return hotels;
         }
 
         public bool UpdateHotel()

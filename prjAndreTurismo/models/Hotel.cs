@@ -18,7 +18,7 @@ namespace prjAndreTurismo.models
         {
             return  $"Hotel: {Name}" +
                     $"\nEndenreço: {Address}" +
-                    $"\nPreço da Diária: {Price}";
+                    $"Preço da Diária: {Price}\n";
         }
     }
 }

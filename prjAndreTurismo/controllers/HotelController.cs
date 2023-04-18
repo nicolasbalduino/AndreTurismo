@@ -14,5 +14,10 @@ namespace prjAndreTurismo.controllers
         {
             return new HotelService().Insert(hotel);
         }
+
+        public List<Hotel> FindAll()
+        {
+            return new HotelService().FindAll();
+        }
     }
 }
