@@ -14,5 +14,14 @@ namespace prjAndreTurismo.models
         public Double Price { get; set; }
         public Client Client { get; set; }
         public DateTime Created { get; set; }
+
+        public override string ToString()
+        {
+            return  $"ID: {Id}" +
+                    $"\nHotel: {Hotel.Name}" +
+                    $"\nPassagem: {Ticket.Id}" +
+                    $"\nPreço: {Price}" +
+                    $"\nCliente: {Client.Name}\n";
+        }
     }
 }
