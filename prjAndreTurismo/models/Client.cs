@@ -16,9 +16,9 @@ namespace prjAndreTurismo.models
 
         public override string ToString()
         {
-            return $"Nome: {Name}" +
-                $"\nTelefone: {Phone}" +
-                $"\nEndereço: {Address}";
+            return  $"Nome: {Name}" +
+                    $"\nTelefone: {Phone}" +
+                    $"\nEndereço: {Address}\n";
         }
     }
 }
