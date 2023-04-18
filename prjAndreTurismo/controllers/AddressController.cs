@@ -20,6 +20,11 @@ namespace prjAndreTurismo.controllers
             return new AddressService().FindById(id);
         }
 
+        public int Update(int id, Address newAddress)
+        {
+            return new AddressService().Update(id, newAddress);
+        }
+
         public int Delete(int id)
         {
             return new AddressService().Delete(id);

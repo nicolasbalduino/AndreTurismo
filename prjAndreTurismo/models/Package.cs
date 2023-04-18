@@ -11,7 +11,7 @@ namespace prjAndreTurismo.models
         public int Id { get; set; }
         public Hotel Hotel { get; set; }
         public Ticket Ticket { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public Client Client { get; set; }
         public DateTime Created { get; set; }
 

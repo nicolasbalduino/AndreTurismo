@@ -68,7 +68,7 @@ namespace prjAndreTurismo.services
                 {
                     Name = (string)dr["hotel"]
                 };
-                showPackage.Price = (decimal)dr["Price"];
+                showPackage.Price = (double)(decimal)dr["Price"];
 
                 packages.Add(showPackage);
             }

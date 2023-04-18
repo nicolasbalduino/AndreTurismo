@@ -18,7 +18,7 @@ namespace prjAndreTurismo.services
         public AddressService()
         {
             conn = new SqlConnection(strConn);
-            conn.Open();
+            //conn.Open();
         }
 
         public int Insert(Address address) 
@@ -40,6 +40,7 @@ namespace prjAndreTurismo.services
 
         public Address FindById(int id)
         {
+            conn.Open();
             string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
                                 $"FROM Address a WHERE a.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
@@ -55,10 +56,37 @@ namespace prjAndreTurismo.services
             address.City = new CityController().FindById((int)dr["IdCity"]);
             address.CEP = (string)dr["PostalCode"];
 
+            conn.Close();
+
             return address;
         }
 
-        public bool UpdateAddress(Address address) { return true; }
+        public int Update(int id, Address newAddress) 
+        {
+            Address oldAddress = FindById(id);
+
+            conn.Open();
+
+            string strUpdate = "UPDATE Address SET " +
+                "Street = @Street, Number = @Number, Neighborhood = @Neighborhood, " +
+                "Complement = @Complement, PostalCode = @PostalCode, IdCity = @IdCity " +
+                "WHERE Id = @Id;";
+            SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
+            commandUpdate.Parameters.Add(new SqlParameter("@Street", newAddress.Street));
+            commandUpdate.Parameters.Add(new SqlParameter("@Number", newAddress.Number));
+            commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", newAddress.Neighborhood));
+            commandUpdate.Parameters.Add(new SqlParameter("@Complement", newAddress.Complement));
+            commandUpdate.Parameters.Add(new SqlParameter("@PostalCode", newAddress.CEP));
+            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", newAddress.City.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+
+            int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
+
+            conn.Close();
+            
+            return rowsAffect;
+
+        }
 
         public int Delete(int id) 
         {

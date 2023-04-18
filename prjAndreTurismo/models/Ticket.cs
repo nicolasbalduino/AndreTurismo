@@ -13,7 +13,7 @@ namespace prjAndreTurismo.models
         public Address Destination { get; set; }
         public Client Client { get; set; }
         public DateTime Checkin { get; set; }
-        public Double Price { get; set; }
+        public double Price { get; set; }
 
         public override string ToString()
         {
