@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using prjAndreTurismo.controllers;
@@ -60,8 +61,11 @@ namespace prjAndreTurismo.services
         public bool UpdateAddress(Address address) { return true; }
 
         public int Delete(int id) 
-        { 
-            return 0; 
+        {
+            string strDelete = "DELETE FROM Address WHERE Id = @Id";
+            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+            commandDelete.Parameters.Add(new SqlParameter("@Id", id));
+            return (int)commandDelete.ExecuteNonQuery();
         }
     }
 }

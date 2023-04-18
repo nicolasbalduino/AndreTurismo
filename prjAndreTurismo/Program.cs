@@ -61,8 +61,7 @@ using prjAndreTurismo.models;
 //else Console.WriteLine("Registro não encontrado");
 
 // deletar por id
-// ainda precisa testar
-if (new AddressController().Delete(1) > 0)
+if (new AddressController().Delete(2) > 0)
     Console.WriteLine("Registro deletado!");
 else
     Console.WriteLine("Registro não deletado!");
