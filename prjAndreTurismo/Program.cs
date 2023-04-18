@@ -101,12 +101,27 @@ Hotel hotel = new()
 //new HotelController().FindAll().ForEach(Console.WriteLine);
 
 // listar hotel pelo nome
-Console.WriteLine(new HotelController().FindByName("High Prices Hotel"));
+//Console.WriteLine(new HotelController().FindByName("High Prices Hotel"));
 
 // listar hotel por id
-Console.WriteLine(new HotelController().FindById(2));
+//Console.WriteLine(new HotelController().FindById(2));
+
+// atualizar hotel
+Hotel newHotel = new()
+{
+    Name = "Low Prices Hotel",
+    Price = 10.00,
+    Address = new() { Id = 10},
+};
+if (new HotelController().Update(2, newHotel) > 0)
+    Console.WriteLine("SUCESSO! Registro editado");
+else Console.WriteLine("ERRO! Registro não editado");
 
 // deletar hotel
+//if (new HotelController().Delete(1) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado!");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado!");
 #endregion
 
 #region Client
@@ -127,7 +142,7 @@ Client client = new()
 Ticket ticket = new()
 {
     Origin = address,
-    Destination = address,
+    Destination = newAddress,
     Client = client,
     Checkin = DateTime.Now,
     Price = 500.00

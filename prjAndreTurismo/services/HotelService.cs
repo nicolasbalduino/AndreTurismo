@@ -119,14 +119,27 @@ namespace prjAndreTurismo.services
             return hotel;
         }
 
-        public bool UpdateHotel()
+        public int Update(int id, Hotel newData)
         {
-            return true;
+            //var toEdit = FindById(id);
+
+            string strSelect = "UPDATE Hotel " +
+                                "SET Name = @Name, IdAddress = @IdAddress, Price = @Price " +
+                                "WHERE Id = @Id";
+            SqlCommand commandSelect = new SqlCommand(strSelect, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Name", newData.Name));
+            commandSelect.Parameters.Add(new SqlParameter("@IdAddress", newData.Address.Id));
+            commandSelect.Parameters.Add(new SqlParameter("@Price", newData.Price));
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+            return commandSelect.ExecuteNonQuery();
         }
 
-        public bool DeleteHotel()
+        public int Delete(int id)
         {
-            return true;
+            string strSelect = "DELETE FROM Hotel WHERE Id = @Id";
+            SqlCommand commandSelect = new SqlCommand(strSelect, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+            return commandSelect.ExecuteNonQuery();
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using prjAndreTurismo.models;
 using prjAndreTurismo.services;
 
@@ -27,6 +28,16 @@ namespace prjAndreTurismo.controllers
         public Hotel FindByName(string name)
         {
             return new HotelService().FindByName(name);
+        }
+
+        public int Update(int id, Hotel newData)
+        {
+            return new HotelService().Update(id, newData);
+        }
+
+        public int Delete(int id)
+        {
+            return new HotelService().Delete(id);
         }
     }
 }
