@@ -85,9 +85,12 @@ namespace prjAndreTurismo.services
             return true;
         }
 
-        public bool DeleteCity(City city)
+        public int Delete(int id)
         {
-            return true;
+            // nao funciona
+            string strDelete = $"DELETE FROM City WHERE Id = {id};";
+            SqlCommand commandDelete = new(strDelete, conn);
+            return commandDelete.ExecuteNonQuery();
         }
     }
 }

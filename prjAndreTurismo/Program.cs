@@ -251,3 +251,9 @@ Console.WriteLine(new CityController().FindByName("Monte Alto").ToString());
 
 // procurar cidade pelo id
 Console.WriteLine(new CityController().FindById(6).ToString());
+
+// deletar cidade pelo id
+if (new CityController().Delete(6) > 0)
+    Console.WriteLine("SUCESSO! Registro deletado!");
+else 
+    Console.WriteLine("ERRO! Registro não deletado!");
