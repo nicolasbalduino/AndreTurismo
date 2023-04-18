@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using prjAndreTurismo.models;
 
 namespace prjAndreTurismo.services
@@ -87,6 +88,34 @@ namespace prjAndreTurismo.services
                 hotel.Address.CEP = (string)resultsHotel["PostalCode"];
                 hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
                 hotel.Address.City.Description = (string)resultsHotel["Description"];
+            return hotel;
+        }
+
+        public Hotel FindByName(string name)
+        {
+            string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
+                                "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
+                                "FROM Hotel h " +
+                                "JOIN Address a on h.IdAddress = a.Id " +
+                                "JOIN City c on a.IdCity = c.Id " +
+                                "WHERE h.Name = @Name";
+            SqlCommand commandSelect = new SqlCommand(strSelect, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Name", name));
+            var resultsHotel = commandSelect.ExecuteReader();
+            resultsHotel.Read();
+
+            Hotel hotel = new Hotel();
+            hotel.Id = (int)resultsHotel["Id"];
+            hotel.Name = (string)resultsHotel["Name"];
+            hotel.Price = (double)(decimal)resultsHotel["Price"];
+            hotel.Address = new() { Id = (int)resultsHotel["IdAddress"] };
+            hotel.Address.Street = (string)resultsHotel["Street"];
+            hotel.Address.Number = (int)resultsHotel["Number"];
+            hotel.Address.Complement = (string)resultsHotel["Complement"];
+            hotel.Address.Neighborhood = (string)resultsHotel["Neighborhood"];
+            hotel.Address.CEP = (string)resultsHotel["PostalCode"];
+            hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
+            hotel.Address.City.Description = (string)resultsHotel["Description"];
             return hotel;
         }
 

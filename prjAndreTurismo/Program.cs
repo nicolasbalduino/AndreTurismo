@@ -101,9 +101,11 @@ Hotel hotel = new()
 //new HotelController().FindAll().ForEach(Console.WriteLine);
 
 // listar hotel pelo nome
+Console.WriteLine(new HotelController().FindByName("High Prices Hotel"));
 
 // listar hotel por id
 Console.WriteLine(new HotelController().FindById(2));
+
 // deletar hotel
 #endregion
 

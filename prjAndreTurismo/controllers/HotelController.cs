@@ -23,5 +23,10 @@ namespace prjAndreTurismo.controllers
         {
             return new HotelService().FindById(id);
         }
+
+        public Hotel FindByName(string name)
+        {
+            return new HotelService().FindByName(name);
+        }
     }
 }
