@@ -16,5 +16,10 @@ namespace prjAndreTurismo.models
         public string Complement { get; set; }
         public City City { get; set; }
         public DateTime Created { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Street}, Nº {Number} {Complement}, {Neighborhood}, {City}, {CEP}\n";
+        }
     }
 }
