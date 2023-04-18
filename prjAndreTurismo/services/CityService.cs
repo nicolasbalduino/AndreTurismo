@@ -29,9 +29,27 @@ namespace prjAndreTurismo.services
             return (int) commandInsert.ExecuteScalar();
         }
 
-        public bool FindAll(City city)
+        public List<City> FindAll()
         {
-            return true;
+            List<City> cities = new();
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("SELECT c.Description");
+            sb.Append(" FROM City c");
+
+            SqlCommand commandSelect = new(sb.ToString(), conn);
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            while (dr.Read())
+            {
+                City showCity = new();
+
+                showCity.Description = (string)dr["Description"];
+                
+
+                cities.Add(showCity);
+            }
+            return cities;
         }
 
         public bool UpdateCity(City city)

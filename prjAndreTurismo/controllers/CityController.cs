@@ -14,5 +14,10 @@ namespace prjAndreTurismo.controllers
         {
             return new CityService().Insert(description);
         }
+
+        public List<City> FindAll()
+        {
+            return new CityService().FindAll();
+        }
     }
 }

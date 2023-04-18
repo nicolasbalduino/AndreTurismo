@@ -240,4 +240,8 @@ using prjAndreTurismo.models;
 //    Console.WriteLine("ERRO! Registro não inserido!");
 #endregion
 
-new PackageController().FindAll().ForEach(Console.WriteLine);
+// listar todos os pacotes
+//new PackageController().FindAll().ForEach(Console.WriteLine);
+
+// listar todas as cidades
+new CityController().FindAll().ForEach(Console.WriteLine);
