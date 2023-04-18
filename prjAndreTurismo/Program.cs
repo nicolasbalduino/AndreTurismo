@@ -98,8 +98,13 @@ Hotel hotel = new()
 //    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar hoteis
-new HotelController().FindAll().ForEach(Console.WriteLine);
+//new HotelController().FindAll().ForEach(Console.WriteLine);
 
+// listar hotel pelo nome
+
+// listar hotel por id
+Console.WriteLine(new HotelController().FindById(2));
+// deletar hotel
 #endregion
 
 #region Client
