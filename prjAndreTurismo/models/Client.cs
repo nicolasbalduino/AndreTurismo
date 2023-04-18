@@ -13,5 +13,12 @@ namespace prjAndreTurismo.models
         public string Phone { get; set; }
         public Address Address { get; set; }
         public DateTime Created { get; set; }
+
+        public override string ToString()
+        {
+            return $"Nome: {Name}" +
+                $"\nTelefone: {Phone}" +
+                $"\nEndereço: {Address}";
+        }
     }
 }
