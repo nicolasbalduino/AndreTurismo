@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using prjAndreTurismo.models;
@@ -19,9 +20,17 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool Insert(Package package)
+        public int Insert(Package package)
         {
-            return true;
+            string strInsert = "INSERT INTO Package (HotelId, TicketId, Price, ClientId) " +
+                                "VALUES(@HotelId, @TicketId, @Price, @ClientId);" +
+                                "SELECT CAST(scope_identity() as INT);";
+            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+            commandInsert.Parameters.Add(new SqlParameter("@HotelId", package.Hotel.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@TicketId", package.Ticket.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@Price", package.Price));
+            commandInsert.Parameters.Add(new SqlParameter("@ClientId", package.Client.Id));
+            return (int)commandInsert.ExecuteScalar();
         }
 
         public bool FindAll(Package package)
