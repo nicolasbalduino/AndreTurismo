@@ -19,7 +19,19 @@ namespace prjAndreTurismo.services
             conn.Open();
         }
 
-        public bool Insert(Ticket ticket) { return true; }
+        public int Insert(Ticket ticket)
+        {
+            string strInsert = "INSERT INTO Ticket (Origin, Destination, ClientId, Checkin, Price) " +
+                                "VALUES(@Origin, @Destination, @ClientId, @Checkin, @Price);" +
+                                "SELECT CAST(scope_identity() as INT);";
+            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
+            commandInsert.Parameters.Add(new SqlParameter("@Origin", ticket.Origin.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@Destination", ticket.Destination.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@ClientId", ticket.Client.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@Checkin", ticket.Checkin));
+            commandInsert.Parameters.Add(new SqlParameter("@Price", ticket.Price));
+            return (int)commandInsert.ExecuteScalar();
+        }
 
         public bool FindAll(Ticket ticket) { return true; }
 
