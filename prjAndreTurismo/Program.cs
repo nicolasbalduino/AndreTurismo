@@ -6,7 +6,7 @@ using prjAndreTurismo.models;
 #region City
 //City city = new City()
 //{
-//Description = "Monte Alto",
+//Description = "Sertãozinho",
 //};
 
 //if (new CityController().Insert(city.Description) > 0)
@@ -253,7 +253,15 @@ using prjAndreTurismo.models;
 //Console.WriteLine(new CityController().FindById(6).ToString());
 
 // deletar cidade pelo id
-if (new CityController().Delete(17) > 0)
-    Console.WriteLine("SUCESSO! Registro deletado!");
+//if (new CityController().Delete(17) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado!");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado!");
+
+// atualizar cidade
+string name = "Sertãozinho";
+string newName = "Araraquara";
+if (new CityController().UpdateCity(name, newName) > 0)
+    Console.WriteLine("SUCESSO! Registro atualizado!");
 else
-    Console.WriteLine("ERRO! Registro não deletado!");
+    Console.WriteLine("ERRO! Registro não atualizado!");

@@ -30,6 +30,11 @@ namespace prjAndreTurismo.controllers
             return new CityService().FindById(id);
         }
 
+        public int UpdateCity(string name, string newName)
+        {
+            return new CityService().UpdateCity(name, newName);
+        }
+
         public int Delete(int id)
         {
             return new CityService().Delete(id);

@@ -63,6 +63,7 @@ namespace prjAndreTurismo.services
             city.Id = (int)dr["Id"];
             city.Description = (string)dr["Description"];
 
+            conn.Close();
             return city;
         }
 
@@ -80,9 +81,16 @@ namespace prjAndreTurismo.services
             return city;
         }
 
-        public bool UpdateCity(City city)
+        public int UpdateCity(string name, string newName)
         {
-            return true;
+            City cityToEdit = FindByName(name);
+            if (cityToEdit == null)
+                return 0;
+
+            conn.Open();
+            string strUpdate = $"UPDATE City SET Description = '{newName}' WHERE Id = {cityToEdit.Id};";
+            SqlCommand commandUpdate = new(strUpdate, conn);
+            return commandUpdate.ExecuteNonQuery();
         }
 
         public int Delete(int id)
