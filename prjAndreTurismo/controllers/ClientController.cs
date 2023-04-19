@@ -22,7 +22,7 @@ namespace prjAndreTurismo.controllers
 
         public List<Client> FindByName(string name)
         {
-            return new List<Client>();
+            return new ClientService().FindByName(name);
         }
 
         public List<Client> FindById(int id)

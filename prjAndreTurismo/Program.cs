@@ -148,10 +148,10 @@ Client newClient = new()
 //    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar todos os clientes
-new ClientController().FindAll().ForEach(Console.WriteLine);
+//new ClientController().FindAll().ForEach(Console.WriteLine);
 
 // listar cliente por nome
-//new ClientController().FindByName("Fulano").ForEach(Console.WriteLine);
+new ClientController().FindByName("Nicolas Balduino").ForEach(Console.WriteLine);
 
 // listar cliente por id
 //Console.WriteLine(new ClientController().FindById(1));
