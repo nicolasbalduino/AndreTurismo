@@ -60,6 +60,7 @@ Address newAddress = new Address()
     City = new() { Id = 18},
 };
 
+// inserir
 //if (new AddressController().Insert(address) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
@@ -209,6 +210,7 @@ Package package = new()
     Client = client
 };
 
+// inserir
 //if (new PackageController().Insert(package) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
@@ -223,10 +225,10 @@ Package package = new()
 // atualizar
 
 // deletar
-if (new PackageController().Delete(1) > 0)
-    Console.WriteLine("SUCESSO! Registro deletado");
-else
-    Console.WriteLine("ERRO! Registro não deletado");
+//if (new PackageController().Delete(1) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 
