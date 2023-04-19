@@ -16,6 +16,9 @@ namespace prjAndreTurismo.models
 
         public override string ToString()
         {
+            if (Name == null && Phone == null && Address == null)
+                return "Cliente não encontrado";
+            
             return  $"Nome: {Name}" +
                     $"\nTelefone: {Phone}" +
                     $"\nEndereço: {Address}\n";

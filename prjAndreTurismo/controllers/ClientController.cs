@@ -25,9 +25,9 @@ namespace prjAndreTurismo.controllers
             return new ClientService().FindByName(name);
         }
 
-        public List<Client> FindById(int id)
+        public Client FindById(int id)
         {
-            return new List<Client>();
+            return new ClientService().FindById(id);
         }
 
         public int Update(int id, Client newClient)

@@ -151,10 +151,10 @@ Client newClient = new()
 //new ClientController().FindAll().ForEach(Console.WriteLine);
 
 // listar cliente por nome
-new ClientController().FindByName("Nicolas Balduino").ForEach(Console.WriteLine);
+//new ClientController().FindByName("Nicolas Balduino").ForEach(Console.WriteLine);
 
 // listar cliente por id
-//Console.WriteLine(new ClientController().FindById(1));
+Console.WriteLine(new ClientController().FindById(100));
 
 // atualizar cliente
 //if (new ClientController().Update(1, newClient) > 0)
