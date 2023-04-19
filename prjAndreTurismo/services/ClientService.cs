@@ -161,7 +161,13 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
-            return 0;
+            string strUpdate = "DELETE FROM Client WHERE Id = @Id;";
+            SqlCommand commandDelete = new SqlCommand(strUpdate, conn);
+            commandDelete.Parameters.Add(new SqlParameter("@Id", id));
+
+            int rowsAffect = (int)commandDelete.ExecuteNonQuery();
+
+            return rowsAffect;
         }
     }
 }

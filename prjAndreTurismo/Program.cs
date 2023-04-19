@@ -142,7 +142,7 @@ Client newClient = new()
 };
 
 // inserir
-//if (new ClientController().Isert(client) > 0)
+//if (new ClientController().Isert(newClient) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
@@ -157,16 +157,16 @@ Client newClient = new()
 //Console.WriteLine(new ClientController().FindById(100));
 
 // atualizar cliente
-if (new ClientController().Update(1, newClient) > 0)
-    Console.WriteLine("SUCESSO! Registro atualizado");
-else
-    Console.WriteLine("ERRO! Registro não atualizado");
+//if (new ClientController().Update(1, newClient) > 0)
+//    Console.WriteLine("SUCESSO! Registro atualizado");
+//else
+//    Console.WriteLine("ERRO! Registro não atualizado");
 
 // deletar cliente
-//if (new ClientController().Delete(1) > 0)
-//    Console.WriteLine("SUCESSO! Registro deletado");
-//else
-//    Console.WriteLine("ERRO! Registro não deletado");
+if (new ClientController().Delete(7) > 0)
+    Console.WriteLine("SUCESSO! Registro deletado");
+else
+    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Ticket
