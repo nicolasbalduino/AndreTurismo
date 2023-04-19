@@ -163,10 +163,10 @@ Client newClient = new()
 //    Console.WriteLine("ERRO! Registro não atualizado");
 
 // deletar cliente
-if (new ClientController().Delete(7) > 0)
-    Console.WriteLine("SUCESSO! Registro deletado");
-else
-    Console.WriteLine("ERRO! Registro não deletado");
+//if (new ClientController().Delete(7) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Ticket
@@ -179,10 +179,21 @@ Ticket ticket = new()
     Price = 500.00
 };
 
+// inserir
 //if (new TicketController().Insert(ticket) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
+
+// listar todos
+//new TicketController().FindAll().ForEach(Console.WriteLine);
+
+// listar por id
+//Console.WriteLine(new TicketController().FindById(1));
+
+// atualizar
+
+// deletar
 #endregion
 
 #region Package

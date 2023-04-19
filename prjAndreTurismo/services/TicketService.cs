@@ -33,7 +33,130 @@ namespace prjAndreTurismo.services
             return (int)commandInsert.ExecuteScalar();
         }
 
-        public bool FindAll(Ticket ticket) { return true; }
+        public List<Ticket> FindAll()
+        {
+            string strSelect = 
+                "SELECT t.Id, t.Checkin, t.Price, " +
+                    "t.Origin, ao.Street aos, ao.Number aon, ao.Complement aoc, ao.Neighborhood aonb, " +
+                        "co.Id coi, co.Description cod, ao.PostalCode aop," +
+                    "t.Destination, ad.Street ads, ad.Number adn, ad.Complement adc, ad.Neighborhood adnb, " +
+                        "cd.Id cdi, cd.Description cdd, ad.PostalCode adp," +
+                    "t.ClientId, cl.Name cln" +
+                " FROM Ticket t" +
+                " JOIN Client cl ON t.ClientId = cl.Id" +
+                " JOIN Address ao ON t.Origin = ao.Id" +
+                " JOIN City co ON ao.IdCity = co.Id" +
+                " JOIN Address ad ON t.Destination = ad.Id" +
+                " JOIN City cd ON ad.IdCity = cd.Id";
+            SqlCommand commandSelect = new SqlCommand(strSelect, conn);
+            var results = commandSelect.ExecuteReader();
+
+            List<Ticket> tickets = new List<Ticket>();
+
+            while (results.Read()) 
+            { 
+                Ticket ticket = new Ticket();
+                ticket.Id = (int)results["Id"];
+                ticket.Price = (double)(decimal)results["Price"];
+                ticket.Checkin = (DateTime)results["Checkin"];
+                if (results["Origin"] != DBNull.Value)
+                {
+                    ticket.Origin = new();
+                    ticket.Origin.Id = (int)results["Origin"];
+                    ticket.Origin.Street = (string)results["aos"];
+                    ticket.Origin.Number = (int)results["aon"];
+                    ticket.Origin.Complement = (string)results["aoc"];
+                    ticket.Origin.Neighborhood = (string)results["aonb"];
+                    ticket.Origin.City = new();
+                    ticket.Origin.City.Id = (int)results["coi"];
+                    ticket.Origin.City.Description = (string)results["cod"];
+                    ticket.Origin.CEP = (string)results["aop"];
+                }
+                if (results["Destination"] != DBNull.Value)
+                {
+                    ticket.Destination = new();
+                    ticket.Destination.Id = (int)results["Destination"];
+                    ticket.Destination.Street = (string)results["ads"];
+                    ticket.Destination.Number = (int)results["adn"];
+                    ticket.Destination.Complement = (string)results["adc"];
+                    ticket.Destination.Neighborhood = (string)results["adnb"];
+                    ticket.Destination.City = new();
+                    ticket.Destination.City.Id = (int)results["cdi"];
+                    ticket.Destination.City.Description = (string)results["cdd"];
+                    ticket.Destination.CEP = (string)results["adp"];
+                }
+                if (results["ClientId"] != DBNull.Value)
+                {
+                    ticket.Client = new Client();
+                    ticket.Client.Id = (int)results["ClientId"];
+                    ticket.Client.Name = (string)results["cln"];
+                }
+                tickets.Add(ticket);
+            }
+            return tickets;
+        }
+
+        public Ticket FindById(int id)
+        {
+            string strSelect =
+                "SELECT t.Id, t.Checkin, t.Price, " +
+                    "t.Origin, ao.Street aos, ao.Number aon, ao.Complement aoc, ao.Neighborhood aonb, " +
+                        "co.Id coi, co.Description cod, ao.PostalCode aop," +
+                    "t.Destination, ad.Street ads, ad.Number adn, ad.Complement adc, ad.Neighborhood adnb, " +
+                        "cd.Id cdi, cd.Description cdd, ad.PostalCode adp," +
+                    "t.ClientId, cl.Name cln" +
+                " FROM Ticket t" +
+                " JOIN Client cl ON t.ClientId = cl.Id" +
+                " JOIN Address ao ON t.Origin = ao.Id" +
+                " JOIN City co ON ao.IdCity = co.Id" +
+                " JOIN Address ad ON t.Destination = ad.Id" +
+                " JOIN City cd ON ad.IdCity = cd.Id" +
+                " WHERE t.Id = @Id";
+            SqlCommand commandSelect = new SqlCommand(strSelect, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+            var results = commandSelect.ExecuteReader();
+
+            Ticket ticket = new Ticket();
+            if (results.Read())
+            {
+                ticket.Id = (int)results["Id"];
+                ticket.Price = (double)(decimal)results["Price"];
+                ticket.Checkin = (DateTime)results["Checkin"];
+                if (results["Origin"] != DBNull.Value)
+                {
+                    ticket.Origin = new();
+                    ticket.Origin.Id = (int)results["Origin"];
+                    ticket.Origin.Street = (string)results["aos"];
+                    ticket.Origin.Number = (int)results["aon"];
+                    ticket.Origin.Complement = (string)results["aoc"];
+                    ticket.Origin.Neighborhood = (string)results["aonb"];
+                    ticket.Origin.City = new();
+                    ticket.Origin.City.Id = (int)results["coi"];
+                    ticket.Origin.City.Description = (string)results["cod"];
+                    ticket.Origin.CEP = (string)results["aop"];
+                }
+                if (results["Destination"] != DBNull.Value)
+                {
+                    ticket.Destination = new();
+                    ticket.Destination.Id = (int)results["Destination"];
+                    ticket.Destination.Street = (string)results["ads"];
+                    ticket.Destination.Number = (int)results["adn"];
+                    ticket.Destination.Complement = (string)results["adc"];
+                    ticket.Destination.Neighborhood = (string)results["adnb"];
+                    ticket.Destination.City = new();
+                    ticket.Destination.City.Id = (int)results["cdi"];
+                    ticket.Destination.City.Description = (string)results["cdd"];
+                    ticket.Destination.CEP = (string)results["adp"];
+                }
+                if (results["ClientId"] != DBNull.Value)
+                {
+                    ticket.Client = new Client();
+                    ticket.Client.Id = (int)results["ClientId"];
+                    ticket.Client.Name = (string)results["cln"];
+                }
+            }
+            return ticket;
+        }
 
         public bool UpdateTicket(Ticket ticket) { return true; }
 

@@ -75,12 +75,12 @@ namespace prjAndreTurismo.services
             return packages;
         }
 
-        public bool UpdatePackage(Package package)
+        public bool Update(Package package)
         {
             return true;
         }
 
-        public bool DeletePackage(Package package)
+        public bool Delete(Package package)
         {
             return true;
         }

@@ -14,5 +14,20 @@ namespace prjAndreTurismo.controllers
         {
             return new TicketService().Insert(ticket);
         }
+
+        public List<Ticket> FindAll()
+        {
+            return new TicketService().FindAll();
+        }
+
+        public Ticket FindById(int id)
+        {
+            return new TicketService().FindById(id);
+        }
+
+        public int Delete()
+        {
+            return 0;
+        }
     }
 }
