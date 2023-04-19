@@ -218,11 +218,15 @@ Package package = new()
 //new PackageController().FindAll().ForEach(Console.WriteLine);
 
 // listar pacote por id
-Console.WriteLine(new PackageController().FindById(1));
+//Console.WriteLine(new PackageController().FindById(1));
 
 // atualizar
 
 // deletar
+if (new PackageController().Delete(1) > 0)
+    Console.WriteLine("SUCESSO! Registro deletado");
+else
+    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 

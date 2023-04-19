@@ -118,9 +118,12 @@ namespace prjAndreTurismo.services
             return true;
         }
 
-        public bool Delete(Package package)
+        public int Delete(int id)
         {
-            return true;
+            string strDelete = "DELETE FROM Package WHERE Id = @Id;";
+            SqlCommand commandSelect = new SqlCommand(strDelete, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+            return commandSelect.ExecuteNonQuery();
         }
     }
 }
