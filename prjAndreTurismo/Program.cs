@@ -10,10 +10,10 @@ City city = new()
 };
 
 // inserir cidade
-if (new CityController().Insert(city.Description) > 0)
-    Console.WriteLine("SUCESSO! Registro inserido!");
-else
-    Console.WriteLine("ERRO! Registro não inserido!");
+//if (new CityController().Insert(city.Description) > 0)
+//    Console.WriteLine("SUCESSO! Registro inserido!");
+//else
+//    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar todas as cidades
 //new CityController().FindAll().ForEach(Console.WriteLine);
