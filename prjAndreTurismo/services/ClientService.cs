@@ -141,14 +141,27 @@ namespace prjAndreTurismo.services
             return client;
         }
 
-        public bool Update(Client client)
+        public int Update(int id, Client newClient)
         {
-            return false;
+            //conn.Open();
+
+            string strUpdate = "UPDATE Client SET Name = @Name, Phone = @Phone " +
+                                "WHERE Id = @Id;";
+            SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
+            commandUpdate.Parameters.Add(new SqlParameter("@Name", newClient.Name));
+            commandUpdate.Parameters.Add(new SqlParameter("@Phone", newClient.Phone));
+            commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+
+            int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
+
+            //conn.Close();
+
+            return rowsAffect;
         }
 
-        public bool Delete(Client client)
+        public int Delete(int id)
         {
-            return false;
+            return 0;
         }
     }
 }

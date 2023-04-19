@@ -154,13 +154,13 @@ Client newClient = new()
 //new ClientController().FindByName("Nicolas Balduino").ForEach(Console.WriteLine);
 
 // listar cliente por id
-Console.WriteLine(new ClientController().FindById(100));
+//Console.WriteLine(new ClientController().FindById(100));
 
 // atualizar cliente
-//if (new ClientController().Update(1, newClient) > 0)
-//    Console.WriteLine("SUCESSO!");
-//else
-//    Console.WriteLine("ERRO!");
+if (new ClientController().Update(1, newClient) > 0)
+    Console.WriteLine("SUCESSO! Registro atualizado");
+else
+    Console.WriteLine("ERRO! Registro não atualizado");
 
 // deletar cliente
 //if (new ClientController().Delete(1) > 0)

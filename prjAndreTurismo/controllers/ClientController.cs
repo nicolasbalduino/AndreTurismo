@@ -32,12 +32,12 @@ namespace prjAndreTurismo.controllers
 
         public int Update(int id, Client newClient)
         {
-            return 0;
+            return new ClientService().Update(id, newClient);
         }
 
         public int Delete(int id)
         {
-            return 0;
+            return new ClientService().Delete(id);
         }
     }
 }
