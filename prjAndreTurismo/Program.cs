@@ -50,6 +50,16 @@ Address address = new Address()
     City = city,
 };
 
+Address newAddress = new Address()
+{
+    Street = "Rua 2",
+    Number = 20,
+    Neighborhood = "Bairro 200",
+    Complement = "Apt. 50",
+    CEP = "15910000",
+    City = new() { Id = 18},
+};
+
 //if (new AddressController().Insert(address) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
@@ -68,15 +78,6 @@ Address address = new Address()
 //    Console.WriteLine("Registro não deletado!");
 
 // atualizar pelo id
-Address newAddress = new Address()
-{
-    Street = "Rua 2",
-    Number = 20,
-    Neighborhood = "Bairro 200",
-    Complement = "Apt. 50",
-    CEP = "15910000",
-    City = new() { Id = 18},
-};
 //if (new AddressController().Update(4, newAddress) > 0)
 //    Console.WriteLine("SUCESSO! Registro editado");
 //else Console.WriteLine("ERRO! Registro não editado");
@@ -89,6 +90,13 @@ Hotel hotel = new()
     Name = "High Prices Hotel",
     Price = 210.00,
     Address = address
+};
+
+Hotel newHotel = new()
+{
+    Name = "Low Prices Hotel",
+    Price = 10.00,
+    Address = new() { Id = 10},
 };
 
 // inserir
@@ -107,15 +115,9 @@ Hotel hotel = new()
 //Console.WriteLine(new HotelController().FindById(2));
 
 // atualizar hotel
-Hotel newHotel = new()
-{
-    Name = "Low Prices Hotel",
-    Price = 10.00,
-    Address = new() { Id = 10},
-};
-if (new HotelController().Update(2, newHotel) > 0)
-    Console.WriteLine("SUCESSO! Registro editado");
-else Console.WriteLine("ERRO! Registro não editado");
+//if (new HotelController().Update(2, newHotel) > 0)
+//    Console.WriteLine("SUCESSO! Registro editado");
+//else Console.WriteLine("ERRO! Registro não editado");
 
 // deletar hotel
 //if (new HotelController().Delete(1) > 0)
@@ -132,10 +134,39 @@ Client client = new()
     Address = address
 };
 
+Client newClient = new()
+{
+    Name = "Leticia Balduino",
+    Phone = "99888887777",
+    Address = newAddress
+};
+
+// inserir
 //if (new ClientController().Isert(client) > 0)
 //    Console.WriteLine("SUCESSO! Registro inserido!");
 //else
 //    Console.WriteLine("ERRO! Registro não inserido!");
+
+// listar todos os clientes
+new ClientController().FindAll().ForEach(Console.WriteLine);
+
+// listar cliente por nome
+new ClientController().FindByName("Fulano").ForEach(Console.WriteLine);
+
+// listar cliente por id
+Console.WriteLine(new ClientController().FindById(1));
+
+// atualizar cliente
+if (new ClientController().Update(1, newClient) > 0)
+    Console.WriteLine("SUCESSO!");
+else
+    Console.WriteLine("ERRO!");
+
+// deletar cliente
+if (new ClientController().Delete(1) > 0)
+    Console.WriteLine("SUCESSO! Registro deletado");
+else
+    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Ticket

@@ -14,5 +14,30 @@ namespace prjAndreTurismo.controllers
         {
             return new ClientService().Insert(client);
         }
+
+        public List<Client> FindAll()
+        {
+            return new List<Client>();
+        }
+
+        public List<Client> FindByName(string name)
+        {
+            return new List<Client>();
+        }
+
+        public List<Client> FindById(int id)
+        {
+            return new List<Client>();
+        }
+
+        public int Update(int id, Client newClient)
+        {
+            return 0;
+        }
+
+        public int Delete(int id)
+        {
+            return 0;
+        }
     }
 }
