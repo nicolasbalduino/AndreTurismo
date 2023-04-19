@@ -16,21 +16,25 @@ namespace prjAndreTurismo.services
         public TicketService()
         {
             conn = new SqlConnection(strConn);
-            conn.Open();
+            //conn.Open();
         }
 
         public int Insert(Ticket ticket)
         {
+            conn.Open();
             string strInsert = "INSERT INTO Ticket (Origin, Destination, ClientId, Checkin, Price) " +
                                 "VALUES(@Origin, @Destination, @ClientId, @Checkin, @Price);" +
                                 "SELECT CAST(scope_identity() as INT);";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Origin", ticket.Origin.Id));
-            commandInsert.Parameters.Add(new SqlParameter("@Destination", ticket.Destination.Id));
-            commandInsert.Parameters.Add(new SqlParameter("@ClientId", ticket.Client.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@Origin", new AddressService().Insert(ticket.Origin)));
+            commandInsert.Parameters.Add(new SqlParameter("@Destination", new AddressService().Insert(ticket.Destination)));
+            commandInsert.Parameters.Add(new SqlParameter("@ClientId", new ClientService().Insert(ticket.Client)));
             commandInsert.Parameters.Add(new SqlParameter("@Checkin", ticket.Checkin));
             commandInsert.Parameters.Add(new SqlParameter("@Price", ticket.Price));
-            return (int)commandInsert.ExecuteScalar();
+            var result = (int)commandInsert.ExecuteScalar();
+
+            conn.Close();
+            return result;
         }
 
         public List<Ticket> FindAll()

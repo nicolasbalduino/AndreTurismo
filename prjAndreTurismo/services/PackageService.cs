@@ -17,20 +17,24 @@ namespace prjAndreTurismo.services
         public PackageService()
         {
             conn = new SqlConnection(strConn);
-            conn.Open();
+            //conn.Open();
         }
 
         public int Insert(Package package)
         {
+            conn.Open();
             string strInsert = "INSERT INTO Package (HotelId, TicketId, Price, ClientId) " +
                                 "VALUES(@HotelId, @TicketId, @Price, @ClientId);" +
                                 "SELECT CAST(scope_identity() as INT);";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@HotelId", package.Hotel.Id));
-            commandInsert.Parameters.Add(new SqlParameter("@TicketId", package.Ticket.Id));
+            commandInsert.Parameters.Add(new SqlParameter("@HotelId", new HotelService().Insert(package.Hotel)));
+            commandInsert.Parameters.Add(new SqlParameter("@TicketId", new TicketService().Insert(package.Ticket)));
             commandInsert.Parameters.Add(new SqlParameter("@Price", package.Price));
-            commandInsert.Parameters.Add(new SqlParameter("@ClientId", package.Client.Id));
-            return (int)commandInsert.ExecuteScalar();
+            commandInsert.Parameters.Add(new SqlParameter("@ClientId", new ClientService().Insert(package.Client)));
+            var result = (int)commandInsert.ExecuteScalar();
+
+            conn.Close();
+            return result;
         }
 
         public List<Package> FindAll()

@@ -23,6 +23,7 @@ namespace prjAndreTurismo.services
 
         public int Insert(Address address) 
         {
+            conn.Open();
             string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, PostalCode, Complement, IdCity) " +
                                 "VALUES(@Street, @Number, @Neighborhood, @PostalCode, @Complement, @IdCity);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -32,8 +33,11 @@ namespace prjAndreTurismo.services
             commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
             commandInsert.Parameters.Add(new SqlParameter("@PostalCode", address.CEP));
             commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-            commandInsert.Parameters.Add(new SqlParameter("@IdCity", address.City.Id));
-            return (int)commandInsert.ExecuteScalar();
+            commandInsert.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(address.City.Description)));
+            var result = (int)commandInsert.ExecuteScalar();
+            
+            conn.Close();
+            return result;
         }
 
         public bool FindAll(Address address) { return true; }

@@ -17,19 +17,23 @@ namespace prjAndreTurismo.services
         public ClientService()
         {
             conn = new SqlConnection(strConn);
-            conn.Open();
+            //conn.Open();
         }
 
         public int Insert(Client client)
         {
+            conn.Open();
             string strInsert = "INSERT INTO Client (Name, Phone, AddressId) " +
                                 "VALUES(@Name, @Phone, @IdAddress);" +
                                 "SELECT CAST(scope_identity() as INT);";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
             commandInsert.Parameters.Add(new SqlParameter("@Name", client.Name));
             commandInsert.Parameters.Add(new SqlParameter("@Phone", client.Phone));
-            commandInsert.Parameters.Add(new SqlParameter("@IdAddress", client.Address.Id));
-            return (int)commandInsert.ExecuteScalar();
+            commandInsert.Parameters.Add(new SqlParameter("@IdAddress", new AddressService().Insert(client.Address)));
+            var result = (int)commandInsert.ExecuteScalar();
+
+            conn.Close();
+            return result;
         }
 
         public List<Client> FindAll()

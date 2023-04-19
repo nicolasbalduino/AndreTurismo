@@ -9,11 +9,11 @@ City city = new()
     Description = "Sertãozinho"
 };
 
-//// inserir cidade
-//if (new CityController().Insert(city.Description) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+// inserir cidade
+if (new CityController().Insert(city.Description) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar todas as cidades
 //new CityController().FindAll().ForEach(Console.WriteLine);
@@ -57,14 +57,14 @@ Address newAddress = new Address()
     Neighborhood = "Bairro 200",
     Complement = "Apt. 50",
     CEP = "15910000",
-    City = new() { Id = 18},
+    City = city,
 };
 
 // inserir
-//if (new AddressController().Insert(address) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+if (new AddressController().Insert(address) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 // procurar endereço por id
 //Address address = new AddressController().FindById(2);
@@ -100,11 +100,11 @@ Hotel newHotel = new()
     Address = new() { Id = 10},
 };
 
-// inserir
-//if (new HotelController().Isert(hotel) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+//inserir
+if (new HotelController().Insert(hotel) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar hoteis
 //new HotelController().FindAll().ForEach(Console.WriteLine);
@@ -143,10 +143,10 @@ Client newClient = new()
 };
 
 // inserir
-//if (new ClientController().Isert(newClient) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+if (new ClientController().Isert(newClient) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar todos os clientes
 //new ClientController().FindAll().ForEach(Console.WriteLine);
@@ -181,10 +181,10 @@ Ticket ticket = new()
 };
 
 // inserir
-//if (new TicketController().Insert(ticket) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+if (new TicketController().Insert(ticket) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 // listar todos
 //new TicketController().FindAll().ForEach(Console.WriteLine);
@@ -211,10 +211,10 @@ Package package = new()
 };
 
 // inserir
-//if (new PackageController().Insert(package) > 0)
-//    Console.WriteLine("SUCESSO! Registro inserido!");
-//else
-//    Console.WriteLine("ERRO! Registro não inserido!");
+if (new PackageController().Insert(package) > 0)
+    Console.WriteLine("SUCESSO! Registro inserido!");
+else
+    Console.WriteLine("ERRO! Registro não inserido!");
 
 ////listar todos os pacotes
 //new PackageController().FindAll().ForEach(Console.WriteLine);
