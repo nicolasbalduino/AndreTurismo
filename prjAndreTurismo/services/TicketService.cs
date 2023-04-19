@@ -158,8 +158,14 @@ namespace prjAndreTurismo.services
             return ticket;
         }
 
-        public bool UpdateTicket(Ticket ticket) { return true; }
+        public bool Update(Ticket ticket) { return true; }
 
-        public bool DeleteTicket(Ticket ticket) { return true; }
+        public int Delete(int id)
+        {
+            string strDelete = "DELETE FROM Ticket WHERE Id = @Id";
+            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+            commandDelete.Parameters.Add(new SqlParameter("@Id", id));
+            return commandDelete.ExecuteNonQuery();
+        }
     }
 }

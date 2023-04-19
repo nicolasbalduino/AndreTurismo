@@ -194,6 +194,10 @@ Ticket ticket = new()
 // atualizar
 
 // deletar
+if (new TicketController().Delete(3) > 0)
+    Console.WriteLine("SUCESSO! Registro deletado com sucesso");
+else
+    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Package
