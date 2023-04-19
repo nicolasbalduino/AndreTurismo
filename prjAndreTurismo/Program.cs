@@ -194,10 +194,10 @@ Ticket ticket = new()
 // atualizar
 
 // deletar
-if (new TicketController().Delete(3) > 0)
-    Console.WriteLine("SUCESSO! Registro deletado com sucesso");
-else
-    Console.WriteLine("ERRO! Registro não deletado");
+//if (new TicketController().Delete(3) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado com sucesso");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Package
@@ -216,6 +216,13 @@ Package package = new()
 
 ////listar todos os pacotes
 //new PackageController().FindAll().ForEach(Console.WriteLine);
+
+// listar pacote por id
+Console.WriteLine(new PackageController().FindById(1));
+
+// atualizar
+
+// deletar
 #endregion
 
 

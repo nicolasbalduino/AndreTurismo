@@ -75,6 +75,44 @@ namespace prjAndreTurismo.services
             return packages;
         }
 
+        public Package FindById(int id)
+        {
+            string strSelect = "SELECT p.Id, c.Name as client, cd.Description as destination, h.Name as hotel, p.Price" +
+                " FROM Package p, Hotel h, Ticket t, Client c, Address d, City cd" +
+                " WHERE (p.HotelId = h.Id) and (p.TicketId = t.Id) and (p.ClientId = c.Id) and " +
+                "(t.Destination = d.Id) and (d.IdCity = cd.Id) and (p.Id = @Id)";
+
+            SqlCommand commandSelect = new(strSelect, conn);
+            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
+            SqlDataReader dr = commandSelect.ExecuteReader();
+
+            Package showPackage = new();
+            if(dr.Read())
+            {
+                showPackage.Id = (int)dr["Id"];
+                showPackage.Client = new()
+                {
+                    Name = (string)dr["client"],
+                };
+                showPackage.Ticket = new()
+                {
+                    Destination = new()
+                    {
+                        City = new()
+                        {
+                            Description = (string)dr["destination"],
+                        }
+                    }
+                };
+                showPackage.Hotel = new()
+                {
+                    Name = (string)dr["hotel"]
+                };
+                showPackage.Price = (double)(decimal)dr["Price"];
+            }
+            return showPackage;
+        }
+
         public bool Update(Package package)
         {
             return true;

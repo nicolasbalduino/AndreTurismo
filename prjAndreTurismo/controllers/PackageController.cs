@@ -19,5 +19,10 @@ namespace prjAndreTurismo.controllers
         {
             return new PackageService().FindAll();
         }
+
+        public Package FindById(int id)
+        {
+            return new PackageService().FindById(id);
+        }
     }
 }

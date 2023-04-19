@@ -158,7 +158,10 @@ namespace prjAndreTurismo.services
             return ticket;
         }
 
-        public bool Update(Ticket ticket) { return true; }
+        public int Update(Ticket ticket)
+        {
+            return 0;
+        }
 
         public int Delete(int id)
         {
