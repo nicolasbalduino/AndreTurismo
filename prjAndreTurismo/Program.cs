@@ -151,22 +151,22 @@ Client newClient = new()
 new ClientController().FindAll().ForEach(Console.WriteLine);
 
 // listar cliente por nome
-new ClientController().FindByName("Fulano").ForEach(Console.WriteLine);
+//new ClientController().FindByName("Fulano").ForEach(Console.WriteLine);
 
 // listar cliente por id
-Console.WriteLine(new ClientController().FindById(1));
+//Console.WriteLine(new ClientController().FindById(1));
 
 // atualizar cliente
-if (new ClientController().Update(1, newClient) > 0)
-    Console.WriteLine("SUCESSO!");
-else
-    Console.WriteLine("ERRO!");
+//if (new ClientController().Update(1, newClient) > 0)
+//    Console.WriteLine("SUCESSO!");
+//else
+//    Console.WriteLine("ERRO!");
 
 // deletar cliente
-if (new ClientController().Delete(1) > 0)
-    Console.WriteLine("SUCESSO! Registro deletado");
-else
-    Console.WriteLine("ERRO! Registro não deletado");
+//if (new ClientController().Delete(1) > 0)
+//    Console.WriteLine("SUCESSO! Registro deletado");
+//else
+//    Console.WriteLine("ERRO! Registro não deletado");
 #endregion
 
 #region Ticket

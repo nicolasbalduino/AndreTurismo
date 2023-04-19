@@ -17,7 +17,7 @@ namespace prjAndreTurismo.controllers
 
         public List<Client> FindAll()
         {
-            return new List<Client>();
+            return new ClientService().FindAll();
         }
 
         public List<Client> FindByName(string name)
