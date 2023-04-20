@@ -81,7 +81,7 @@ namespace prjAndreTurismo.services
             commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", newAddress.Neighborhood));
             commandUpdate.Parameters.Add(new SqlParameter("@Complement", newAddress.Complement));
             commandUpdate.Parameters.Add(new SqlParameter("@PostalCode", newAddress.CEP));
-            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", newAddress.City.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(newAddress.City.Description)));
             commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
 
             int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
@@ -94,10 +94,13 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id) 
         {
+            conn.Open();
             string strDelete = "DELETE FROM Address WHERE Id = @Id";
             SqlCommand commandDelete = new SqlCommand(strDelete, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
-            return (int)commandDelete.ExecuteNonQuery();
+            var result = commandDelete.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }

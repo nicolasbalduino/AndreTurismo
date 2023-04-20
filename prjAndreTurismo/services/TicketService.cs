@@ -39,6 +39,7 @@ namespace prjAndreTurismo.services
 
         public List<Ticket> FindAll()
         {
+            conn.Open();
             string strSelect = 
                 "SELECT t.Id, t.Checkin, t.Price, " +
                     "t.Origin, ao.Street aos, ao.Number aon, ao.Complement aoc, ao.Neighborhood aonb, " +
@@ -97,11 +98,13 @@ namespace prjAndreTurismo.services
                 }
                 tickets.Add(ticket);
             }
+            conn.Close();
             return tickets;
         }
 
         public Ticket FindById(int id)
         {
+            conn.Open();
             string strSelect =
                 "SELECT t.Id, t.Checkin, t.Price, " +
                     "t.Origin, ao.Street aos, ao.Number aon, ao.Complement aoc, ao.Neighborhood aonb, " +
@@ -159,6 +162,7 @@ namespace prjAndreTurismo.services
                     ticket.Client.Name = (string)results["cln"];
                 }
             }
+            conn.Close();
             return ticket;
         }
 
@@ -169,10 +173,13 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
+            conn.Open();
             string strDelete = "DELETE FROM Ticket WHERE Id = @Id";
             SqlCommand commandDelete = new SqlCommand(strDelete, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
-            return commandDelete.ExecuteNonQuery();
+            var result = commandDelete.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }

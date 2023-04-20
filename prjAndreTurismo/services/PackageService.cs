@@ -39,6 +39,7 @@ namespace prjAndreTurismo.services
 
         public List<Package> FindAll()
         {
+            conn.Open();
             List<Package> packages = new();
 
             StringBuilder sb = new StringBuilder();
@@ -76,11 +77,13 @@ namespace prjAndreTurismo.services
 
                 packages.Add(showPackage);
             }
+            conn.Close();
             return packages;
         }
 
         public Package FindById(int id)
         {
+            conn.Open();
             string strSelect = "SELECT p.Id, c.Name as client, cd.Description as destination, h.Name as hotel, p.Price" +
                 " FROM Package p, Hotel h, Ticket t, Client c, Address d, City cd" +
                 " WHERE (p.HotelId = h.Id) and (p.TicketId = t.Id) and (p.ClientId = c.Id) and " +
@@ -114,6 +117,7 @@ namespace prjAndreTurismo.services
                 };
                 showPackage.Price = (double)(decimal)dr["Price"];
             }
+            conn.Close();
             return showPackage;
         }
 
@@ -124,10 +128,13 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
+            conn.Open();
             string strDelete = "DELETE FROM Package WHERE Id = @Id;";
             SqlCommand commandSelect = new SqlCommand(strDelete, conn);
             commandSelect.Parameters.Add(new SqlParameter("@Id", id));
-            return commandSelect.ExecuteNonQuery();
+            var result = commandSelect.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }

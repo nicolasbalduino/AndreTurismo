@@ -38,6 +38,7 @@ namespace prjAndreTurismo.services
 
         public List<Client> FindAll()
         {
+            conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -69,11 +70,13 @@ namespace prjAndreTurismo.services
                                 
                 clients.Add(client);
             }
+            conn.Close();
             return clients;
         }
 
         public List<Client> FindByName(string name)
         {
+            conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -107,11 +110,13 @@ namespace prjAndreTurismo.services
 
                 clients.Add(client);
             }
+            conn.Close();
             return clients;
         }
 
         public Client FindById(int id)
         {
+            conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -142,12 +147,13 @@ namespace prjAndreTurismo.services
                     client.Address.City.Description = (string)results["City"];
                 }
             }
+            conn.Close();
             return client;
         }
 
         public int Update(int id, Client newClient)
         {
-            //conn.Open();
+            conn.Open();
 
             string strUpdate = "UPDATE Client SET Name = @Name, Phone = @Phone " +
                                 "WHERE Id = @Id;";
@@ -158,18 +164,20 @@ namespace prjAndreTurismo.services
 
             int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
 
-            //conn.Close();
+            conn.Close();
 
             return rowsAffect;
         }
 
         public int Delete(int id)
         {
+            conn.Open();
             string strUpdate = "DELETE FROM Client WHERE Id = @Id;";
             SqlCommand commandDelete = new SqlCommand(strUpdate, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
 
             int rowsAffect = (int)commandDelete.ExecuteNonQuery();
+            conn.Close();
 
             return rowsAffect;
         }

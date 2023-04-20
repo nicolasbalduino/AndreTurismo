@@ -38,6 +38,7 @@ namespace prjAndreTurismo.services
 
         public List<Hotel> FindAll()
         {
+            conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -64,11 +65,13 @@ namespace prjAndreTurismo.services
 
                 hotels.Add(hotel);
             }
+            conn.Close();
             return hotels;
         }
 
         public Hotel FindById(int id)
         {
+            conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -92,11 +95,13 @@ namespace prjAndreTurismo.services
                 hotel.Address.CEP = (string)resultsHotel["PostalCode"];
                 hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
                 hotel.Address.City.Description = (string)resultsHotel["Description"];
+            conn.Close();
             return hotel;
         }
 
         public Hotel FindByName(string name)
         {
+            conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -120,6 +125,7 @@ namespace prjAndreTurismo.services
             hotel.Address.CEP = (string)resultsHotel["PostalCode"];
             hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
             hotel.Address.City.Description = (string)resultsHotel["Description"];
+            conn.Close();
             return hotel;
         }
 
@@ -127,6 +133,7 @@ namespace prjAndreTurismo.services
         {
             //var toEdit = FindById(id);
 
+            conn.Open();
             string strSelect = "UPDATE Hotel " +
                                 "SET Name = @Name, IdAddress = @IdAddress, Price = @Price " +
                                 "WHERE Id = @Id";
@@ -135,15 +142,20 @@ namespace prjAndreTurismo.services
             commandSelect.Parameters.Add(new SqlParameter("@IdAddress", newData.Address.Id));
             commandSelect.Parameters.Add(new SqlParameter("@Price", newData.Price));
             commandSelect.Parameters.Add(new SqlParameter("@Id", id));
-            return commandSelect.ExecuteNonQuery();
+            var result = commandSelect.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
 
         public int Delete(int id)
         {
+            conn.Open();
             string strSelect = "DELETE FROM Hotel WHERE Id = @Id";
             SqlCommand commandSelect = new SqlCommand(strSelect, conn);
             commandSelect.Parameters.Add(new SqlParameter("@Id", id));
-            return commandSelect.ExecuteNonQuery();
+            var result = commandSelect.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }
