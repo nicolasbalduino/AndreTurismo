@@ -27,5 +27,23 @@ namespace API.Controllers
         {
             return new CityService().FindByName(name);
         }
+
+        [HttpPost(Name = "Insert")]
+        public int Insert(string description)
+        {
+            return new CityService().Insert(description);
+        }
+
+        [HttpPut("{name}/{newName}", Name = "Update")]
+        public int Update(string name, string newName)
+        {
+            return new CityService().Update(name, newName);
+        }
+
+        [HttpDelete("{id}", Name = "Delete")]
+        public int Delete(int id)
+        {
+            return new CityService().Delete(id);
+        }
     }
 }

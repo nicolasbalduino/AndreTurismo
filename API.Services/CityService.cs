@@ -82,34 +82,46 @@ namespace API.Services
             conn.Open();
             string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
-            SqlDataReader dr = commandSelect.ExecuteReader();
-            dr.Read();
+            SqlDataReader results = commandSelect.ExecuteReader();
 
+            if (!results.Read())
+            {
+                conn.Close();
+                return null;
+            }
+            
             City city = new();
-            city.Id = (int)dr["Id"];
-            city.Description = (string)dr["Description"];
+            city.Id = (int)results["Id"];
+            city.Description = (string)results["Description"];
 
             conn.Close();
             return city;
         }
 
-        public int UpdateCity(string name, string newName)
+        public int Update(string name, string newName)
         {
             City cityToEdit = FindByName(name);
             if (cityToEdit == null)
                 return 0;
 
+            conn.Open();
             string strUpdate = $"UPDATE City SET Description = '{newName}' WHERE Id = {cityToEdit.Id};";
             SqlCommand commandUpdate = new(strUpdate, conn);
-            return commandUpdate.ExecuteNonQuery();
+            var result = commandUpdate.ExecuteNonQuery();
+            conn.Close();
+
+            return result;
         }
 
         public int Delete(int id)
         {
             // funciona se não estiver relacionado
+            conn.Open();
             string strDelete = $"DELETE FROM City WHERE Id = {id};";
             SqlCommand commandDelete = new(strDelete, conn);
-            return commandDelete.ExecuteNonQuery();
+            var result = commandDelete.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }
