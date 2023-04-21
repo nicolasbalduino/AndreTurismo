@@ -17,12 +17,12 @@ namespace prjAndreTurismo.services
         public ClientService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(Client client)
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO Client (Name, Phone, AddressId) " +
                                 "VALUES(@Name, @Phone, @IdAddress);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -38,7 +38,7 @@ namespace prjAndreTurismo.services
 
         public List<Client> FindAll()
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -76,7 +76,7 @@ namespace prjAndreTurismo.services
 
         public List<Client> FindByName(string name)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -116,7 +116,7 @@ namespace prjAndreTurismo.services
 
         public Client FindById(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -153,7 +153,7 @@ namespace prjAndreTurismo.services
 
         public int Update(int id, Client newClient)
         {
-            conn.Open();
+            //conn.Open();
 
             string strUpdate = "UPDATE Client SET Name = @Name, Phone = @Phone " +
                                 "WHERE Id = @Id;";
@@ -171,7 +171,7 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strUpdate = "DELETE FROM Client WHERE Id = @Id;";
             SqlCommand commandDelete = new SqlCommand(strUpdate, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));

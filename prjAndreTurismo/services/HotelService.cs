@@ -17,12 +17,12 @@ namespace prjAndreTurismo.services
         public HotelService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(Hotel hotel)
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO Hotel (Name, IdAddress, Price) " +
                                 "VALUES(@Name, @IdAddress, @Price);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -38,7 +38,7 @@ namespace prjAndreTurismo.services
 
         public List<Hotel> FindAll()
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -71,7 +71,7 @@ namespace prjAndreTurismo.services
 
         public Hotel FindById(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -101,7 +101,7 @@ namespace prjAndreTurismo.services
 
         public Hotel FindByName(string name)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "SELECT h.Id, h.Name, h.Price, a.Id idAddress, a.Street, a.Number, a.Complement, " +
                                 "a.Neighborhood, c.Id as idCity, c.Description, a.PostalCode " +
                                 "FROM Hotel h " +
@@ -133,7 +133,7 @@ namespace prjAndreTurismo.services
         {
             //var toEdit = FindById(id);
 
-            conn.Open();
+            //conn.Open();
             string strSelect = "UPDATE Hotel " +
                                 "SET Name = @Name, IdAddress = @IdAddress, Price = @Price " +
                                 "WHERE Id = @Id";
@@ -149,7 +149,7 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = "DELETE FROM Hotel WHERE Id = @Id";
             SqlCommand commandSelect = new SqlCommand(strSelect, conn);
             commandSelect.Parameters.Add(new SqlParameter("@Id", id));

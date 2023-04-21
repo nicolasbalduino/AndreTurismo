@@ -18,12 +18,12 @@ namespace prjAndreTurismo.services
         public AddressService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(Address address) 
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, PostalCode, Complement, IdCity) " +
                                 "VALUES(@Street, @Number, @Neighborhood, @PostalCode, @Complement, @IdCity);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -44,7 +44,7 @@ namespace prjAndreTurismo.services
 
         public Address FindById(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
                                 $"FROM Address a WHERE a.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
@@ -67,9 +67,9 @@ namespace prjAndreTurismo.services
 
         public int Update(int id, Address newAddress) 
         {
-            Address oldAddress = FindById(id);
+            Address oldAddress = new AddressService().FindById(id);
 
-            conn.Open();
+            //conn.Open();
 
             string strUpdate = "UPDATE Address SET " +
                 "Street = @Street, Number = @Number, Neighborhood = @Neighborhood, " +
@@ -94,7 +94,7 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id) 
         {
-            conn.Open();
+            //conn.Open();
             string strDelete = "DELETE FROM Address WHERE Id = @Id";
             SqlCommand commandDelete = new SqlCommand(strDelete, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
