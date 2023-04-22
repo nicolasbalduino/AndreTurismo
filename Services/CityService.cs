@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using System.Xml.Linq;
+using Models;
 using Repositories;
 
 namespace Services
@@ -20,6 +21,7 @@ namespace Services
 
         public List<City> FindAll()
         {
+            return cityRepository.FindAll();
             //List<City> cities = new();
 
             //StringBuilder sb = new StringBuilder();
@@ -43,6 +45,7 @@ namespace Services
 
         public City FindByName(string name)
         {
+            return cityRepository.FindByName(name);
             //string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Description = '{name}';";
             //SqlCommand commandSelect = new(strSelect, conn);
             //SqlDataReader dr = commandSelect.ExecuteReader();
@@ -60,6 +63,7 @@ namespace Services
 
         public City FindById(int id)
         {
+            return cityRepository.FindById(id);
             //string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Id = {id};";
             //SqlCommand commandSelect = new(strSelect, conn);
             //SqlDataReader dr = commandSelect.ExecuteReader();
@@ -76,6 +80,7 @@ namespace Services
 
         public int UpdateCity(string name, string newName)
         {
+            return cityRepository.Update(name, newName);
             //City cityToEdit = new CityService().FindByName(name);
             //if (cityToEdit == null)
             //    return 0;
@@ -88,6 +93,7 @@ namespace Services
 
         public int Delete(int id)
         {
+            return cityRepository.Delete(id);
             //string strDelete = $"DELETE FROM City WHERE Id = {id};";
             //SqlCommand commandDelete = new(strDelete, conn);
             //var result = commandDelete.ExecuteNonQuery();

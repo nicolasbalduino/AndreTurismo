@@ -12,7 +12,7 @@ namespace Models
         public readonly static string SELECTALL = "SELECT c.Id, c.Description FROM City c";
         public readonly static string SELECTNAME = "SELECT c.Id, c.Description FROM City c WHERE c.Description = @Name;";
         public readonly static string SELECTID = "SELECT c.Id, c.Description FROM City c WHERE c.Id = @Id;";
-        public readonly static string UPDATE = "UPDATE City SET Description = @Description WHERE Id = @Id;";
+        public readonly static string UPDATE = "UPDATE City SET Description = @NewName WHERE Description = @Name;";
         public readonly static string DELETE = "DELETE FROM City WHERE Id = @Id;";
 
         public int Id { get; set; }

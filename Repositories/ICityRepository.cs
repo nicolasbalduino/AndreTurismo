@@ -12,7 +12,7 @@ namespace Repositories
 
         City FindById(int id);
 
-        int UpdateCity(string name, string newName);
+        int Update(string name, string newName);
 
         int Delete(int id);
     }

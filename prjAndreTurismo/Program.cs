@@ -144,14 +144,14 @@ do
             break;
         case 3:
             var showcityname = new CityController().FindByName("Sertãozinho");
-            if (showcityname.Id != 0)
+            if (showcityname != null)
                 Console.WriteLine(showcityname);
             else
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 4:
             var showcityid = new CityController().FindById(1);
-            if (showcityid.Id != 0)
+            if (showcityid != null)
                 Console.WriteLine(showcityid);
             else
                 Console.WriteLine("Nenhum registro encontrado!");
