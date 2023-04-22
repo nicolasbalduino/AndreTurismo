@@ -1,9 +1,7 @@
-﻿
-using System.Collections.Immutable;
+﻿using System.Collections.Immutable;
 using System.ComponentModel;
-using prjAndreTurismo.controllers;
-using prjAndreTurismo.models;
-
+using Controllers;
+using Models;
 
 int Menu()
 {
@@ -53,8 +51,6 @@ int Menu()
 
     return op;
 }
-
-
 
 City city = new()
 {
@@ -126,7 +122,6 @@ Package package = new()
     Client = client
 };
 
-
 int op;
 do
 {
@@ -135,7 +130,7 @@ do
     switch (op)
     {
         case 1:
-            if (new CityController().Insert(city.Description) > 0)
+            if (new CityController().Insert(city) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
