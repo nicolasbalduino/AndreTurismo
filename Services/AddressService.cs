@@ -6,37 +6,22 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Repositories;
 
 namespace Services
 {
     public class AddressService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\user\source\repos\prjAndreTurismo\AndreTurismo.mdf;";
-        readonly SqlConnection conn;
+        private IAddressRepository addressRepository;
 
         public AddressService()
         {
-            conn = new SqlConnection(strConn);
-            conn.Open();
+            addressRepository = new AddressRepository();
         }
 
         public int Insert(Address address) 
         {
-            //conn.Open();
-            string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, PostalCode, Complement, IdCity) " +
-                                "VALUES(@Street, @Number, @Neighborhood, @PostalCode, @Complement, @IdCity);" +
-                                "SELECT CAST(scope_identity() as INT);";
-            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@Street", address.Street));
-            commandInsert.Parameters.Add(new SqlParameter("@Number", address.Number));
-            commandInsert.Parameters.Add(new SqlParameter("@Neighborhood", address.Neighborhood));
-            commandInsert.Parameters.Add(new SqlParameter("@PostalCode", address.CEP));
-            commandInsert.Parameters.Add(new SqlParameter("@Complement", address.Complement));
-            commandInsert.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(address.City)));
-            var result = (int)commandInsert.ExecuteScalar();
-            
-            conn.Close();
-            return result;
+            return addressRepository.Insert(address);
         }
 
         public List<Address> FindAll()
@@ -46,65 +31,59 @@ namespace Services
 
         public Address FindById(int id)
         {
-            //conn.Open();
-            string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
-                                $"FROM Address a WHERE a.Id = {id};";
-            SqlCommand commandSelect = new(strSelect, conn);
-            SqlDataReader dr = commandSelect.ExecuteReader();
-            
-            Address address = new();
-            if (dr.Read())
-            {
-                address.Id = (int)dr["Id"];
-                address.Street = (string)dr["Street"];
-                address.Number = (int)dr["Number"];
-                address.Complement = (string)dr["Complement"];
-                address.Neighborhood = (string)dr["Neighborhood"];
-                address.City = new CityService().FindById((int)dr["IdCity"]);
-                address.CEP = (string)dr["PostalCode"];
-            }
+            //string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
+            //                    $"FROM Address a WHERE a.Id = {id};";
+            //SqlCommand commandSelect = new(strSelect, conn);
+            //SqlDataReader dr = commandSelect.ExecuteReader();
 
-            conn.Close();
+            //Address address = new();
+            //if (dr.Read())
+            //{
+            //    address.Id = (int)dr["Id"];
+            //    address.Street = (string)dr["Street"];
+            //    address.Number = (int)dr["Number"];
+            //    address.Complement = (string)dr["Complement"];
+            //    address.Neighborhood = (string)dr["Neighborhood"];
+            //    address.City = new CityService().FindById((int)dr["IdCity"]);
+            //    address.CEP = (string)dr["PostalCode"];
+            //}
 
-            return address;
+            //return address;
+            return new();
         }
 
         public int Update(int id, Address newAddress) 
         {
-            Address oldAddress = new AddressService().FindById(id);
+            //Address oldAddress = new AddressService().FindById(id);
 
-            //conn.Open();
+            //string strUpdate = "UPDATE Address SET " +
+            //    "Street = @Street, Number = @Number, Neighborhood = @Neighborhood, " +
+            //    "Complement = @Complement, PostalCode = @PostalCode, IdCity = @IdCity " +
+            //    "WHERE Id = @Id;";
+            //SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
+            //commandUpdate.Parameters.Add(new SqlParameter("@Street", newAddress.Street));
+            //commandUpdate.Parameters.Add(new SqlParameter("@Number", newAddress.Number));
+            //commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", newAddress.Neighborhood));
+            //commandUpdate.Parameters.Add(new SqlParameter("@Complement", newAddress.Complement));
+            //commandUpdate.Parameters.Add(new SqlParameter("@PostalCode", newAddress.CEP));
+            //commandUpdate.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(newAddress.City)));
+            //commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
 
-            string strUpdate = "UPDATE Address SET " +
-                "Street = @Street, Number = @Number, Neighborhood = @Neighborhood, " +
-                "Complement = @Complement, PostalCode = @PostalCode, IdCity = @IdCity " +
-                "WHERE Id = @Id;";
-            SqlCommand commandUpdate = new SqlCommand(strUpdate, conn);
-            commandUpdate.Parameters.Add(new SqlParameter("@Street", newAddress.Street));
-            commandUpdate.Parameters.Add(new SqlParameter("@Number", newAddress.Number));
-            commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", newAddress.Neighborhood));
-            commandUpdate.Parameters.Add(new SqlParameter("@Complement", newAddress.Complement));
-            commandUpdate.Parameters.Add(new SqlParameter("@PostalCode", newAddress.CEP));
-            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(newAddress.City)));
-            commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
+            //int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
 
-            int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
-
-            conn.Close();
-            
-            return rowsAffect;
+            //return rowsAffect;
+            return 0;
 
         }
 
         public int Delete(int id) 
         {
-            //conn.Open();
-            string strDelete = "DELETE FROM Address WHERE Id = @Id";
-            SqlCommand commandDelete = new SqlCommand(strDelete, conn);
-            commandDelete.Parameters.Add(new SqlParameter("@Id", id));
-            var result = commandDelete.ExecuteNonQuery();
-            conn.Close();
-            return result;
+            //string strDelete = "DELETE FROM Address WHERE Id = @Id";
+            //SqlCommand commandDelete = new SqlCommand(strDelete, conn);
+            //commandDelete.Parameters.Add(new SqlParameter("@Id", id));
+            //var result = commandDelete.ExecuteNonQuery();
+            //return result;
+            return 0;
         }
     }
 }
