@@ -121,9 +121,9 @@ namespace prjAndreTurismo.services
             return showPackage;
         }
 
-        public bool Update(Package package)
+        public int Update(Package package)
         {
-            return true;
+            return 0;
         }
 
         public int Delete(int id)

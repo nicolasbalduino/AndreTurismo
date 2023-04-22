@@ -40,7 +40,10 @@ namespace prjAndreTurismo.services
             return result;
         }
 
-        public bool FindAll(Address address) { return true; }
+        public List<Address> FindAll()
+        {
+            return new();
+        }
 
         public Address FindById(int id)
         {
@@ -49,16 +52,18 @@ namespace prjAndreTurismo.services
                                 $"FROM Address a WHERE a.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
-            dr.Read();
-
+            
             Address address = new();
-            address.Id = (int)dr["Id"];
-            address.Street = (string)dr["Street"];
-            address.Number = (int)dr["Number"];
-            address.Complement = (string)dr["Complement"];
-            address.Neighborhood = (string)dr["Neighborhood"];
-            address.City = new CityController().FindById((int)dr["IdCity"]);
-            address.CEP = (string)dr["PostalCode"];
+            if (dr.Read())
+            {
+                address.Id = (int)dr["Id"];
+                address.Street = (string)dr["Street"];
+                address.Number = (int)dr["Number"];
+                address.Complement = (string)dr["Complement"];
+                address.Neighborhood = (string)dr["Neighborhood"];
+                address.City = new CityController().FindById((int)dr["IdCity"]);
+                address.CEP = (string)dr["PostalCode"];
+            }
 
             conn.Close();
 

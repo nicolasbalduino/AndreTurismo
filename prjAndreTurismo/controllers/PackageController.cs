@@ -25,6 +25,11 @@ namespace prjAndreTurismo.controllers
             return new PackageService().FindById(id);
         }
 
+        public int Update(Package package)
+        {
+            return new PackageService().Update(package);
+        }
+
         public int Delete(int id)
         {
             return new PackageService().Delete(id);

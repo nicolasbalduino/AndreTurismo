@@ -81,9 +81,11 @@ namespace prjAndreTurismo.services
             SqlCommand commandSelect = new SqlCommand(strSelect, conn);
             commandSelect.Parameters.Add(new SqlParameter("@Id", id));
             var resultsHotel = commandSelect.ExecuteReader();
-            resultsHotel.Read();
+            
             
                 Hotel hotel = new Hotel();
+            if (resultsHotel.Read())
+            {
                 hotel.Id = (int)resultsHotel["Id"];
                 hotel.Name = (string)resultsHotel["Name"];
                 hotel.Price = (double)(decimal)resultsHotel["Price"];
@@ -95,6 +97,7 @@ namespace prjAndreTurismo.services
                 hotel.Address.CEP = (string)resultsHotel["PostalCode"];
                 hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
                 hotel.Address.City.Description = (string)resultsHotel["Description"];
+            }
             conn.Close();
             return hotel;
         }

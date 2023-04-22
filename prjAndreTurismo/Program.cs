@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Immutable;
 using System.ComponentModel;
 using prjAndreTurismo.controllers;
 using prjAndreTurismo.models;
@@ -8,48 +9,46 @@ int Menu()
 {
     Console.Clear();
     Console.WriteLine("MENU ");
-    Console.WriteLine("0 - Sair do programa");
-    Console.WriteLine("1 - Cidade Cadastrar");
-    Console.WriteLine("2 - Cidade Listar todas");
-    Console.WriteLine("3 - Cidade Procurar por nome");
-    Console.WriteLine("4 - Cidade procurar por id");
-    Console.WriteLine("5 - Cidade atualizar");
-    Console.WriteLine("6 - Cidade deletar");
+    Console.WriteLine("01 - Cidade Cadastrar");
+    Console.WriteLine("02 - Cidade Listar todas");
+    Console.WriteLine("03 - Cidade Procurar por nome");
+    Console.WriteLine("04 - Cidade procurar por id");
+    Console.WriteLine("05 - Cidade atualizar");
+    Console.WriteLine("06 - Cidade deletar");
     Console.WriteLine();
-    Console.WriteLine("7 - Endereço Cadastrar");
-    Console.WriteLine("8 - Endereço Listar todos");
-    Console.WriteLine("9 - Endereço procurar por id");
-    Console.WriteLine("10 - Endereço atualizar");
-    Console.WriteLine("11 - Endereço deletar");
+    Console.WriteLine("11 - Endereço Cadastrar");
+    Console.WriteLine("12 - Endereço Listar todos");
+    Console.WriteLine("13 - Endereço procurar por id");
+    Console.WriteLine("14 - Endereço atualizar");
+    Console.WriteLine("15 - Endereço deletar");
     Console.WriteLine();
-    Console.WriteLine("12 - Hotel Cadastrar");
-    Console.WriteLine("13 - Hotel Listar todas");
-    Console.WriteLine("14 - Hotel Procurar por nome");
-    Console.WriteLine("15 - Hotel procurar por id");
-    Console.WriteLine("16 - Hotel atualizar");
-    Console.WriteLine("17 - Hotel deletar");
+    Console.WriteLine("21 - Hotel Cadastrar");
+    Console.WriteLine("22 - Hotel Listar todas");
+    Console.WriteLine("23 - Hotel Procurar por nome");
+    Console.WriteLine("24 - Hotel procurar por id");
+    Console.WriteLine("25 - Hotel atualizar");
+    Console.WriteLine("26 - Hotel deletar");
     Console.WriteLine();
-    Console.WriteLine("18 - Cliente Cadastrar");
-    Console.WriteLine("19 - Cliente Listar todas");
-    Console.WriteLine("20 - Cliente Procurar por nome");
-    Console.WriteLine("21 - Cliente procurar por id");
-    Console.WriteLine("22 - Cliente atualizar");
-    Console.WriteLine("23 - Cliente deletar");
+    Console.WriteLine("31 - Cliente Cadastrar");
+    Console.WriteLine("32 - Cliente Listar todas");
+    Console.WriteLine("33 - Cliente Procurar por nome");
+    Console.WriteLine("34 - Cliente procurar por id");
+    Console.WriteLine("35 - Cliente atualizar");
+    Console.WriteLine("36 - Cliente deletar");
     Console.WriteLine();
-    Console.WriteLine("24 - Ticket Cadastrar");
-    Console.WriteLine("25 - Ticket Listar todas");
-    Console.WriteLine("26 - Ticket Procurar por nome");
-    Console.WriteLine("27 - Ticket procurar por id");
-    Console.WriteLine("28 - Ticket atualizar");
-    Console.WriteLine("29 - Ticket deletar");
+    Console.WriteLine("41 - Ticket Cadastrar");
+    Console.WriteLine("42 - Ticket Listar todas");
+    Console.WriteLine("43 - Ticket procurar por id");
+    Console.WriteLine("44 - Ticket atualizar");
+    Console.WriteLine("45 - Ticket deletar");
     Console.WriteLine();
-    Console.WriteLine("30 - Pacote Cadastrar");
-    Console.WriteLine("31 - Pacote Listar todas");
-    Console.WriteLine("32 - Pacote Procurar por nome");
-    Console.WriteLine("33 - Pacote procurar por id");
-    Console.WriteLine("34 - Pacote atualizar");
-    Console.WriteLine("35 - Pacote deletar");
-    Console.Write("Digite sua escolha: ");
+    Console.WriteLine("51 - Pacote Cadastrar");
+    Console.WriteLine("52 - Pacote Listar todas");
+    Console.WriteLine("53 - Pacote procurar por id");
+    Console.WriteLine("54 - Pacote atualizar");
+    Console.WriteLine("55 - Pacote deletar");
+    Console.WriteLine("Para sair, digite qualquer coisa fora as opções do menu");
+    Console.Write("\nDigite sua escolha: ");
     int.TryParse(Console.ReadLine(), out int op);
 
     return op;
@@ -132,6 +131,7 @@ int op;
 do
 {
     op = Menu();
+    Console.WriteLine();
     switch (op)
     {
         case 1:
@@ -141,13 +141,25 @@ do
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
         case 2:
-            new CityController().FindAll().ForEach(Console.WriteLine);
+            var showcities = new CityController().FindAll();
+            if (showcities.Count > 0)
+                showcities.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 3:
-            Console.WriteLine(new CityController().FindByName("Sertãozinho").ToString());
+            var showcityname = new CityController().FindByName("Sertãozinho");
+            if (showcityname.Id != 0)
+                Console.WriteLine(showcityname);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 4:
-            Console.WriteLine(new CityController().FindById(1).ToString());
+            var showcityid = new CityController().FindById(1);
+            if (showcityid.Id != 0)
+                Console.WriteLine(showcityid);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 5:
             string name = "Sertãozinho";
@@ -163,133 +175,177 @@ do
             else
                 Console.WriteLine("ERRO! Registro não deletado!");
             break;
-        case 7:
+        case 11:
             if (new AddressController().Insert(address) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
-        case 8:
+        case 12:
+            var showaddresses = new AddressController().FindAll();
+            if (showaddresses.Count > 0)
+                showaddresses.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Ainda não implementado!");
             break;
-        case 9:
-            Address FindAddress = new AddressController().FindById(1);
-            if (FindAddress != null)
-                Console.WriteLine(FindAddress);
-            else Console.WriteLine("Registro não encontrado");
+        case 13:
+            Address FindAddressid = new AddressController().FindById(1);
+            if (FindAddressid.Id != 0)
+                Console.WriteLine(FindAddressid);
+            else 
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 10:
+        case 14:
             if (new AddressController().Update(1, newAddress) > 0)
                 Console.WriteLine("SUCESSO! Registro editado");
             else Console.WriteLine("ERRO! Registro não editado");
             break;
-        case 11:
+        case 15:
             if (new AddressController().Delete(1) > 0)
                 Console.WriteLine("Registro deletado!");
             else
                 Console.WriteLine("Registro não deletado!");
             break;
-        case 12:
+        case 21:
             if (new HotelController().Insert(hotel) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
-        case 13:
-            new HotelController().FindAll().ForEach(Console.WriteLine);
+        case 22:
+            var showhotels = new HotelController().FindAll();
+            if (showhotels.Count > 0)
+                showhotels.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 14:
+        case 23:
             Console.WriteLine(new HotelController().FindByName("High Prices Hotel"));
             break;
-        case 15:
-            Console.WriteLine(new HotelController().FindById(1));
+        case 24:
+            var showhotel = new HotelController().FindById(1);
+            if(showhotel.Id != 0)
+                Console.WriteLine(showhotel);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 16:
+        case 25:
             if (new HotelController().Update(1, newHotel) > 0)
                 Console.WriteLine("SUCESSO! Registro editado");
             else Console.WriteLine("ERRO! Registro não editado");
             break;
-        case 17:
+        case 26:
             if (new HotelController().Delete(1) > 0)
                 Console.WriteLine("SUCESSO! Registro deletado!");
             else
                 Console.WriteLine("ERRO! Registro não deletado!");
             break;
-        case 18:
+        case 31:
             if (new ClientController().Isert(newClient) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
-        case 19:
-            new ClientController().FindAll().ForEach(Console.WriteLine);
+        case 32:
+            var showclients = new ClientController().FindAll();
+            if (showclients.Count > 0)
+                showclients.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 20:
-            new ClientController().FindByName("Nicolas Balduino").ForEach(Console.WriteLine);
+        case 33:
+            var showclientname = new ClientController().FindByName("Nicolas Balduino");
+            if (showclientname.Count > 0)
+                showclientname.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
+                break;
+        case 34:
+            var showclientid = new ClientController().FindById(1);
+            if (showclientid.Id != 0)
+                Console.WriteLine(showclientid);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 21:
-            Console.WriteLine(new ClientController().FindById(100));
-            break;
-        case 22:
+        case 35:
             if (new ClientController().Update(1, newClient) > 0)
                 Console.WriteLine("SUCESSO! Registro atualizado");
             else
                 Console.WriteLine("ERRO! Registro não atualizado");
             break;
-        case 23:
+        case 36:
             if (new ClientController().Delete(1) > 0)
                 Console.WriteLine("SUCESSO! Registro deletado");
             else
                 Console.WriteLine("ERRO! Registro não deletado");
             break;
-        case 24:
+        case 41:
             if (new TicketController().Insert(ticket) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
-        case 25:
-            new TicketController().FindAll().ForEach(Console.WriteLine);
+        case 42:
+            var showtickets = new TicketController().FindAll();
+            if (showtickets.Count > 0)
+                showtickets.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 26:
-            // campo inutil
-            break;
-        case 27:
+        case 43:
             Console.WriteLine(new TicketController().FindById(1));
             break;
-        case 28:
-            // atualizar
+        case 44:
+            if (new TicketController().Update(ticket) > 0)
+                Console.WriteLine("SUCESSO! Registro deletado com sucesso");
+            else
+                Console.WriteLine("Ainda não implementado!");
             break;
-        case 29:
+        case 45:
             if (new TicketController().Delete(1) > 0)
                 Console.WriteLine("SUCESSO! Registro deletado com sucesso");
             else
                 Console.WriteLine("ERRO! Registro não deletado");
             break;
-        case 30:
+        case 51:
             if (new PackageController().Insert(package) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
             break;
-        case 31:
-            new PackageController().FindAll().ForEach(Console.WriteLine);
+        case 52:
+            var shoepackages = new PackageController().FindAll();
+            if (shoepackages.Count > 0)
+                shoepackages.ForEach(Console.WriteLine);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 32:
-            Console.WriteLine(new PackageController().FindById(1));
+        case 53:
+            var showpackageid = new PackageController().FindById(1);
+            if (showpackageid.Id != 0)
+                Console.WriteLine(showpackageid);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
-        case 33:
-            // atualizar
+        case 54:
+            if (new PackageController().Update(package) > 0)
+                Console.WriteLine("SUCESSO! Registro deletado");
+            else
+                Console.WriteLine("Ainda não implementado!");
             break;
-        case 34:
+        case 55:
             if (new PackageController().Delete(1) > 0)
                 Console.WriteLine("SUCESSO! Registro deletado");
             else
                 Console.WriteLine("ERRO! Registro não deletado");
             break;
         default:
+            op = 0;
+            Console.WriteLine("Bye bye!");
             break;
     }
+    Console.WriteLine("Pressione qualquer tecla para continuar");
     Console.ReadLine();
-} while (op != 0);
+} while (op > 0 && op < 56);
 
 
