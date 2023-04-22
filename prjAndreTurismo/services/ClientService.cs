@@ -17,12 +17,12 @@ namespace prjAndreTurismo.services
         public ClientService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(Client client)
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO Client (Name, Phone, AddressId) " +
                                 "VALUES(@Name, @Phone, @IdAddress);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -38,6 +38,7 @@ namespace prjAndreTurismo.services
 
         public List<Client> FindAll()
         {
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -69,11 +70,13 @@ namespace prjAndreTurismo.services
                                 
                 clients.Add(client);
             }
+            conn.Close();
             return clients;
         }
 
         public List<Client> FindByName(string name)
         {
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -107,11 +110,13 @@ namespace prjAndreTurismo.services
 
                 clients.Add(client);
             }
+            conn.Close();
             return clients;
         }
 
         public Client FindById(int id)
         {
+            //conn.Open();
             string strSelect = "SELECT c.Id, c.Name, c.Phone, a.Id IdAddress, a.Street, a.Number, a.Complement, " +
                 "a.Neighborhood, cl.Id IdCity, cl.Description City, a.PostalCode " +
                 "FROM Client c " +
@@ -142,6 +147,7 @@ namespace prjAndreTurismo.services
                     client.Address.City.Description = (string)results["City"];
                 }
             }
+            conn.Close();
             return client;
         }
 
@@ -158,18 +164,20 @@ namespace prjAndreTurismo.services
 
             int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
 
-            //conn.Close();
+            conn.Close();
 
             return rowsAffect;
         }
 
         public int Delete(int id)
         {
+            //conn.Open();
             string strUpdate = "DELETE FROM Client WHERE Id = @Id;";
             SqlCommand commandDelete = new SqlCommand(strUpdate, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
 
             int rowsAffect = (int)commandDelete.ExecuteNonQuery();
+            conn.Close();
 
             return rowsAffect;
         }

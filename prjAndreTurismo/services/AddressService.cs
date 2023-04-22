@@ -18,12 +18,12 @@ namespace prjAndreTurismo.services
         public AddressService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(Address address) 
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO Address (Street, Number, Neighborhood, PostalCode, Complement, IdCity) " +
                                 "VALUES(@Street, @Number, @Neighborhood, @PostalCode, @Complement, @IdCity);" +
                                 "SELECT CAST(scope_identity() as INT);";
@@ -40,25 +40,30 @@ namespace prjAndreTurismo.services
             return result;
         }
 
-        public bool FindAll(Address address) { return true; }
+        public List<Address> FindAll()
+        {
+            return new();
+        }
 
         public Address FindById(int id)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
                                 $"FROM Address a WHERE a.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
-            dr.Read();
-
+            
             Address address = new();
-            address.Id = (int)dr["Id"];
-            address.Street = (string)dr["Street"];
-            address.Number = (int)dr["Number"];
-            address.Complement = (string)dr["Complement"];
-            address.Neighborhood = (string)dr["Neighborhood"];
-            address.City = new CityController().FindById((int)dr["IdCity"]);
-            address.CEP = (string)dr["PostalCode"];
+            if (dr.Read())
+            {
+                address.Id = (int)dr["Id"];
+                address.Street = (string)dr["Street"];
+                address.Number = (int)dr["Number"];
+                address.Complement = (string)dr["Complement"];
+                address.Neighborhood = (string)dr["Neighborhood"];
+                address.City = new CityController().FindById((int)dr["IdCity"]);
+                address.CEP = (string)dr["PostalCode"];
+            }
 
             conn.Close();
 
@@ -67,9 +72,9 @@ namespace prjAndreTurismo.services
 
         public int Update(int id, Address newAddress) 
         {
-            Address oldAddress = FindById(id);
+            Address oldAddress = new AddressService().FindById(id);
 
-            conn.Open();
+            //conn.Open();
 
             string strUpdate = "UPDATE Address SET " +
                 "Street = @Street, Number = @Number, Neighborhood = @Neighborhood, " +
@@ -81,7 +86,7 @@ namespace prjAndreTurismo.services
             commandUpdate.Parameters.Add(new SqlParameter("@Neighborhood", newAddress.Neighborhood));
             commandUpdate.Parameters.Add(new SqlParameter("@Complement", newAddress.Complement));
             commandUpdate.Parameters.Add(new SqlParameter("@PostalCode", newAddress.CEP));
-            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", newAddress.City.Id));
+            commandUpdate.Parameters.Add(new SqlParameter("@IdCity", new CityService().Insert(newAddress.City.Description)));
             commandUpdate.Parameters.Add(new SqlParameter("@Id", id));
 
             int rowsAffect = (int)commandUpdate.ExecuteNonQuery();
@@ -94,10 +99,13 @@ namespace prjAndreTurismo.services
 
         public int Delete(int id) 
         {
+            //conn.Open();
             string strDelete = "DELETE FROM Address WHERE Id = @Id";
             SqlCommand commandDelete = new SqlCommand(strDelete, conn);
             commandDelete.Parameters.Add(new SqlParameter("@Id", id));
-            return (int)commandDelete.ExecuteNonQuery();
+            var result = commandDelete.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }

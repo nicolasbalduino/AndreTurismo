@@ -17,12 +17,12 @@ namespace prjAndreTurismo.services
         public CityService()
         {
             conn = new SqlConnection(strConn);
-            //conn.Open();
+            conn.Open();
         }
 
         public int Insert(string description)
         {
-            conn.Open();
+            //conn.Open();
             string strInsert = "INSERT INTO City (Description) VALUES(@Description);" +
                                 "SELECT CAST(scope_identity() as INT);";
             SqlCommand commandInsert = new SqlCommand(strInsert, conn);
@@ -41,6 +41,7 @@ namespace prjAndreTurismo.services
             sb.Append("SELECT c.Description");
             sb.Append(" FROM City c");
 
+            //conn.Open();
             SqlCommand commandSelect = new(sb.ToString(), conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
 
@@ -53,20 +54,24 @@ namespace prjAndreTurismo.services
 
                 cities.Add(showCity);
             }
+            conn.Close();
             return cities;
         }
 
         public City FindByName(string name)
         {
-            conn.Open();
+            //conn.Open();
             string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Description = '{name}';";
             SqlCommand commandSelect = new(strSelect, conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
 
-            dr.Read();
             City city = new();
-            city.Id = (int)dr["Id"];
-            city.Description = (string)dr["Description"];
+            
+            if (dr.Read())
+            {
+                city.Id = (int)dr["Id"];
+                city.Description = (string)dr["Description"];
+            }
 
             conn.Close();
             return city;
@@ -74,35 +79,45 @@ namespace prjAndreTurismo.services
 
         public City FindById(int id)
         {
+            //conn.Open();
             string strSelect = $"SELECT c.Id, c.Description FROM City c WHERE c.Id = {id};";
             SqlCommand commandSelect = new(strSelect, conn);
             SqlDataReader dr = commandSelect.ExecuteReader();
-            dr.Read();
 
             City city = new();
-            city.Id = (int)dr["Id"];
-            city.Description = (string)dr["Description"];
+            if (dr.Read())
+            {
+                city.Id = (int)dr["Id"];
+                city.Description = (string)dr["Description"];
+            }
 
+            conn.Close();
             return city;
         }
 
         public int UpdateCity(string name, string newName)
         {
-            City cityToEdit = FindByName(name);
+            City cityToEdit = new CityService().FindByName(name);
             if (cityToEdit == null)
                 return 0;
 
+            //conn.Open();
             string strUpdate = $"UPDATE City SET Description = '{newName}' WHERE Id = {cityToEdit.Id};";
             SqlCommand commandUpdate = new(strUpdate, conn);
-            return commandUpdate.ExecuteNonQuery();
+            var result = commandUpdate.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
 
         public int Delete(int id)
         {
             // funciona se não estiver relacionado
+            //conn.Open();
             string strDelete = $"DELETE FROM City WHERE Id = {id};";
             SqlCommand commandDelete = new(strDelete, conn);
-            return commandDelete.ExecuteNonQuery();
+            var result = commandDelete.ExecuteNonQuery();
+            conn.Close();
+            return result;
         }
     }
 }

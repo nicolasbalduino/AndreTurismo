@@ -25,6 +25,11 @@ namespace prjAndreTurismo.controllers
             return new TicketService().FindById(id);
         }
 
+        public int Update(Ticket ticket)
+        {
+            return new TicketService().Update(ticket);
+        }
+
         public int Delete(int id)
         {
             return new TicketService().Delete(id);
