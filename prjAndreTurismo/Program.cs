@@ -56,7 +56,7 @@ City city = new()
 {
     Description = "Sertãozinho"
 };
-city.Id = 1;
+//city.Id = 1;
 
 Address address = new Address()
 {
@@ -241,7 +241,7 @@ do
                 Console.WriteLine("ERRO! Registro não deletado!");
             break;
         case 31:
-            if (new ClientController().Isert(newClient) > 0)
+            if (new ClientController().Isert(client) > 0)
                 Console.WriteLine("SUCESSO! Registro inserido!");
             else
                 Console.WriteLine("ERRO! Registro não inserido!");
@@ -262,7 +262,7 @@ do
                 break;
         case 34:
             var showclientid = new ClientController().FindById(1);
-            if (showclientid.Id != 0)
+            if (showclientid != null)
                 Console.WriteLine(showclientid);
             else
                 Console.WriteLine("Nenhum registro encontrado!");
@@ -293,7 +293,11 @@ do
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 43:
-            Console.WriteLine(new TicketController().FindById(1));
+            var showticketid = new TicketController().FindById(1);
+            if (showticketid != null)
+                Console.WriteLine(showticketid);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 44:
             if (new TicketController().Update(ticket) > 0)
@@ -322,7 +326,7 @@ do
             break;
         case 53:
             var showpackageid = new PackageController().FindById(1);
-            if (showpackageid.Id != 0)
+            if (showpackageid != null)
                 Console.WriteLine(showpackageid);
             else
                 Console.WriteLine("Nenhum registro encontrado!");

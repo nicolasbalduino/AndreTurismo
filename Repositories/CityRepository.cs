@@ -20,7 +20,7 @@ namespace Repositories
             using(var db = new SqlConnection(Conn))
             {
                 db.Open();
-                result = db.Execute(City.INSERT, city);
+                result = (int)db.ExecuteScalar(City.INSERT, city);
                 db.Close();
             }
             return result;

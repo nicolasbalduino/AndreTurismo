@@ -25,8 +25,9 @@ namespace Repositories
             using(var db = new SqlConnection(Conn))
             {
                 db.Open();
-                address.City.Id = (int)db.ExecuteScalar(City.INSERT, address.City);
-                result = db.Execute(Address.INSERT, new
+                ICityRepository cityRepository = new CityRepository();
+                address.City.Id = cityRepository.Insert(address.City);
+                result = (int)db.ExecuteScalar(Address.INSERT, new
                 {
                     address.Street,
                     address.Number,
