@@ -25,9 +25,9 @@ namespace Repositories
             using (var db = new SqlConnection(Conn))
             {
                 db.Open();
-                IAddressRepository addressRepository = new AddressRepository();
-                client.Address.Id = addressRepository.Insert(client.Address);
-                result = db.Execute(Client.INSERT, new
+                IAddressRepository clientAddressRepository = new AddressRepository();
+                client.Address.Id = clientAddressRepository.Insert(client.Address);
+                result = (int)db.ExecuteScalar(Client.INSERT, new
                 {
                     client.Name,
                     client.Phone,

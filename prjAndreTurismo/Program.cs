@@ -56,7 +56,6 @@ City city = new()
 {
     Description = "Sertãozinho"
 };
-//city.Id = 1;
 
 Address address = new Address()
 {
@@ -78,6 +77,16 @@ Address newAddress = new Address()
     City = city,
 };
 
+Address clientAddress = new Address()
+{
+    Street = "Rua 3",
+    Number = 30,
+    Neighborhood = "Bairro 300",
+    Complement = "Apt. 10",
+    PostalCode = "10000",
+    City = city,
+};
+
 Hotel hotel = new()
 {
     Name = "High Prices Hotel",
@@ -96,7 +105,7 @@ Client client = new()
 {
     Name = "Nicolas Balduino",
     Phone = "16997654312",
-    Address = address
+    Address = clientAddress
 };
 
 Client newClient = new()
@@ -113,6 +122,16 @@ Ticket ticket = new()
     Client = client,
     Checkin = DateTime.Now,
     Price = 500.00
+};
+
+Ticket newTicket = new()
+{
+    Id = 1,
+    Origin = newAddress,
+    Destination = address,
+    Client = newClient,
+    Checkin = DateTime.Now,
+    Price = 20000.00
 };
 
 Package package = new()
@@ -300,8 +319,8 @@ do
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 44:
-            if (new TicketController().Update(ticket) > 0)
-                Console.WriteLine("SUCESSO! Registro deletado com sucesso");
+            if (new TicketController().Update(newTicket) > 0)
+                Console.WriteLine("SUCESSO! Registro atualizado com sucesso");
             else
                 Console.WriteLine("Ainda não implementado!");
             break;
