@@ -26,15 +26,8 @@ namespace Repositories
             using (var db = new SqlConnection(Conn))
             {
                 db.Open();
-                hotel.Address.Id = (int)db.ExecuteScalar(Address.INSERT, new
-                {
-                    hotel.Address.Street,
-                    hotel.Address.Number,
-                    hotel.Address.Neighborhood,
-                    hotel.Address.PostalCode,
-                    hotel.Address.Complement,
-                    IdCity = hotel.Address.City.Id
-                });
+                IAddressRepository addressRepository = new AddressRepository();
+                hotel.Address.Id = addressRepository.Insert(hotel.Address);
                 result = db.Execute(Hotel.INSERT, new
                 {
                     hotel.Name,
@@ -54,7 +47,7 @@ namespace Repositories
                 db.Open();
                 results = db.Query<Hotel, Address, City, Hotel>(Hotel.SELECTALL,
                     (hotel, address, city) => { hotel.Address = address; address.City = city; return hotel; },
-                    splitOn: "idAddress, idCity").ToList();
+                    splitOn: "Id, Id").ToList();
                 db.Close();
             }
             return results;
@@ -68,7 +61,7 @@ namespace Repositories
                 db.Open();
                 results = db.Query<Hotel, Address, City, Hotel>(Hotel.SELECTID,
                     (hotel, address, city) => { hotel.Address = address; address.City = city; return hotel; }, new { id },
-                    splitOn: "idAddress, idCity").FirstOrDefault();
+                    splitOn: "Id, Id").FirstOrDefault();
                 db.Close();
             }
             return results;
@@ -82,7 +75,7 @@ namespace Repositories
                 db.Open();
                 results = db.Query<Hotel, Address, City, Hotel>(Hotel.SELECTNAME,
                     (hotel, address, city) => { hotel.Address = address; address.City = city; return hotel; }, new { name },
-                    splitOn: "idAddress, idCity").FirstOrDefault();
+                    splitOn: "Id, Id").FirstOrDefault();
                 db.Close();
             }
             return results;
