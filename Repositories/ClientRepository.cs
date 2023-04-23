@@ -27,14 +27,6 @@ namespace Repositories
                 db.Open();
                 IAddressRepository addressRepository = new AddressRepository();
                 client.Address.Id = addressRepository.Insert(client.Address);
-                //client.Address.Id = (int)db.ExecuteScalar(Address.INSERT, new
-                //{
-                //    client.Address.Street,
-                //    client.Address.Number,
-                //    client.Address.Neighborhood,
-                //    client.Address.PostalCode,
-                //    client.Address.Complement,
-                //});
                 result = db.Execute(Client.INSERT, new
                 {
                     client.Name,
