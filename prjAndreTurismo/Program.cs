@@ -216,12 +216,16 @@ do
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 23:
-            Console.WriteLine(new HotelController().FindByName("High Prices Hotel"));
+            var showhotelname = new HotelController().FindByName("High Prices Hotel");
+            if (showhotelname != null)
+                Console.WriteLine(showhotelname);
+            else
+                Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 24:
-            var showhotel = new HotelController().FindById(1);
-            if(showhotel.Id != 0)
-                Console.WriteLine(showhotel);
+            var showhotelid = new HotelController().FindById(1);
+            if(showhotelid != null)
+                Console.WriteLine(showhotelid);
             else
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
