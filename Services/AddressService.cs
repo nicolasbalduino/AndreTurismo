@@ -26,11 +26,12 @@ namespace Services
 
         public List<Address> FindAll()
         {
-            return new();
+            return addressRepository.FindAll();
         }
 
         public Address FindById(int id)
         {
+            return addressRepository.FindById(id);
             //string strSelect = $"SELECT a.Id, a.Street, a.Number, a.Complement, a.Neighborhood, a.IdCity, a.PostalCode " +
             //                    $"FROM Address a WHERE a.Id = {id};";
             //SqlCommand commandSelect = new(strSelect, conn);
@@ -54,6 +55,7 @@ namespace Services
 
         public int Update(int id, Address newAddress) 
         {
+            return addressRepository.Update(id, newAddress);
             //Address oldAddress = new AddressService().FindById(id);
 
             //string strUpdate = "UPDATE Address SET " +
@@ -78,6 +80,7 @@ namespace Services
 
         public int Delete(int id) 
         {
+            return addressRepository.Delete(id);
             //string strDelete = "DELETE FROM Address WHERE Id = @Id";
             //SqlCommand commandDelete = new SqlCommand(strDelete, conn);
             //commandDelete.Parameters.Add(new SqlParameter("@Id", id));

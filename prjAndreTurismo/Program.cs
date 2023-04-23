@@ -56,6 +56,7 @@ City city = new()
 {
     Description = "Sertãozinho"
 };
+city.Id = 1;
 
 Address address = new Address()
 {
@@ -63,7 +64,7 @@ Address address = new Address()
     Number = 1,
     Neighborhood = "Bairro 1",
     Complement = "Fundos",
-    CEP = "15910000",
+    PostalCode = "15910000",
     City = city,
 };
 
@@ -73,7 +74,7 @@ Address newAddress = new Address()
     Number = 20,
     Neighborhood = "Bairro 200",
     Complement = "Apt. 50",
-    CEP = "15910000",
+    PostalCode = "15910000",
     City = city,
 };
 
@@ -185,7 +186,7 @@ do
             break;
         case 13:
             Address FindAddressid = new AddressController().FindById(1);
-            if (FindAddressid.Id != 0)
+            if (FindAddressid != null)
                 Console.WriteLine(FindAddressid);
             else 
                 Console.WriteLine("Nenhum registro encontrado!");
@@ -340,6 +341,7 @@ do
             break;
     }
     Console.WriteLine("Pressione qualquer tecla para continuar");
+    
     Console.ReadLine();
 } while (op > 0 && op < 56);
 

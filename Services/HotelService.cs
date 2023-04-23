@@ -59,7 +59,7 @@ namespace Services
                 hotel.Address.Number = (int)resultsHotel["Number"];
                 hotel.Address.Complement = (string)resultsHotel["Complement"];
                 hotel.Address.Neighborhood = (string)resultsHotel["Neighborhood"];
-                hotel.Address.CEP = (string)resultsHotel["PostalCode"];
+                hotel.Address.PostalCode = (string)resultsHotel["PostalCode"];
                 hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
                 hotel.Address.City.Description = (string)resultsHotel["Description"];
 
@@ -94,7 +94,7 @@ namespace Services
                 hotel.Address.Number = (int)resultsHotel["Number"];
                 hotel.Address.Complement = (string)resultsHotel["Complement"];
                 hotel.Address.Neighborhood = (string)resultsHotel["Neighborhood"];
-                hotel.Address.CEP = (string)resultsHotel["PostalCode"];
+                hotel.Address.PostalCode = (string)resultsHotel["PostalCode"];
                 hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
                 hotel.Address.City.Description = (string)resultsHotel["Description"];
             }
@@ -125,7 +125,7 @@ namespace Services
             hotel.Address.Number = (int)resultsHotel["Number"];
             hotel.Address.Complement = (string)resultsHotel["Complement"];
             hotel.Address.Neighborhood = (string)resultsHotel["Neighborhood"];
-            hotel.Address.CEP = (string)resultsHotel["PostalCode"];
+            hotel.Address.PostalCode = (string)resultsHotel["PostalCode"];
             hotel.Address.City = new() { Id = (int)resultsHotel["idCity"] };
             hotel.Address.City.Description = (string)resultsHotel["Description"];
             conn.Close();

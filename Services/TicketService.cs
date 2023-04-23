@@ -75,7 +75,7 @@ namespace Services
                     ticket.Origin.City = new();
                     ticket.Origin.City.Id = (int)results["coi"];
                     ticket.Origin.City.Description = (string)results["cod"];
-                    ticket.Origin.CEP = (string)results["aop"];
+                    ticket.Origin.PostalCode = (string)results["aop"];
                 }
                 if (results["Destination"] != DBNull.Value)
                 {
@@ -88,7 +88,7 @@ namespace Services
                     ticket.Destination.City = new();
                     ticket.Destination.City.Id = (int)results["cdi"];
                     ticket.Destination.City.Description = (string)results["cdd"];
-                    ticket.Destination.CEP = (string)results["adp"];
+                    ticket.Destination.PostalCode = (string)results["adp"];
                 }
                 if (results["ClientId"] != DBNull.Value)
                 {
@@ -140,7 +140,7 @@ namespace Services
                     ticket.Origin.City = new();
                     ticket.Origin.City.Id = (int)results["coi"];
                     ticket.Origin.City.Description = (string)results["cod"];
-                    ticket.Origin.CEP = (string)results["aop"];
+                    ticket.Origin.PostalCode = (string)results["aop"];
                 }
                 if (results["Destination"] != DBNull.Value)
                 {
@@ -153,7 +153,7 @@ namespace Services
                     ticket.Destination.City = new();
                     ticket.Destination.City.Id = (int)results["cdi"];
                     ticket.Destination.City.Description = (string)results["cdd"];
-                    ticket.Destination.CEP = (string)results["adp"];
+                    ticket.Destination.PostalCode = (string)results["adp"];
                 }
                 if (results["ClientId"] != DBNull.Value)
                 {

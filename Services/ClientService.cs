@@ -60,7 +60,7 @@ namespace Services
                 client.Address.Number = (int)results["Number"];
                 client.Address.Complement = (string)results["Complement"];
                 client.Address.Neighborhood = (string)results["Neighborhood"];
-                client.Address.CEP = (string)results["PostalCode"];               
+                client.Address.PostalCode = (string)results["PostalCode"];               
                 if (results["IdCity"] != DBNull.Value)
                 {
                     client.Address.City = new();
@@ -100,7 +100,7 @@ namespace Services
                 client.Address.Number = (int)results["Number"];
                 client.Address.Complement = (string)results["Complement"];
                 client.Address.Neighborhood = (string)results["Neighborhood"];
-                client.Address.CEP = (string)results["PostalCode"];
+                client.Address.PostalCode = (string)results["PostalCode"];
                 if (results["IdCity"] != DBNull.Value)
                 {
                     client.Address.City = new();
@@ -139,7 +139,7 @@ namespace Services
                 client.Address.Number = (int)results["Number"];
                 client.Address.Complement = (string)results["Complement"];
                 client.Address.Neighborhood = (string)results["Neighborhood"];
-                client.Address.CEP = (string)results["PostalCode"];
+                client.Address.PostalCode = (string)results["PostalCode"];
                 if (results["IdCity"] != DBNull.Value)
                 {
                     client.Address.City = new();

@@ -31,7 +31,7 @@ namespace Repositories
                     address.Street,
                     address.Number,
                     address.Neighborhood,
-                    address.CEP,
+                    address.PostalCode,
                     address.Complement,
                     IdCity = address.City.Id
                 });
@@ -42,42 +42,70 @@ namespace Repositories
 
         public List<Address> FindAll()
         {
+            var results = new List<Address>();
             using (var db = new SqlConnection(Conn))
             {
                 db.Open();
+                results = db.Query<Address, City, Address>(Address.SELECTALL, 
+                    (a, c) => { a.City = c; return a; }, 
+                    splitOn: "Id").ToList();
                 db.Close();
             }
-            return new();
+            return results;
         }
 
-        public Address FindById(int id)
+        public Address FindById(int Id)
         {
+            var results = new Address();
             using (var db = new SqlConnection(Conn))
             {
                 db.Open();
+                results = db.Query<Address, City, Address>( // mapeamento de address e city, retorna address
+                    Address.SELECTID, // minha query
+                    (address, city) => 
+                    { 
+                        address.City = city; 
+                        return address; 
+                    }, // vincula address com city
+                    new { Id }, // parametros da query
+                    splitOn: "Id").FirstOrDefault();
                 db.Close();
             }
-            return new();
+            return results;
         }
 
         public int Update(int id, Address newAddress)
         {
+            var results = 0;
             using (var db = new SqlConnection(Conn))
             {
+                newAddress.Id = id;
                 db.Open();
+                results = db.Execute(Address.UPDATE, new 
+                {
+                    newAddress.Id,
+                    newAddress.Street,
+                    newAddress.Number,
+                    newAddress.Complement,
+                    newAddress.PostalCode,
+                    newAddress.Neighborhood,
+                    IdCity = newAddress.City.Id,
+                });
                 db.Close();
             }
-            return 0;
+            return results;
         }
 
         public int Delete(int id)
         {
+            var results = 0;
             using (var db = new SqlConnection(Conn))
             {
                 db.Open();
+                results = db.Execute(Address.DELETE, new { id });
                 db.Close();
             }
-            return 0;
+            return results;
         }
     }
 }
