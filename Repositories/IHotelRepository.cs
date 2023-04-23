@@ -8,7 +8,7 @@ using Models;
 
 namespace Repositories
 {
-    public interface IHotel
+    public interface IHotelRepository
     {
         int Insert(Hotel hotel);
 

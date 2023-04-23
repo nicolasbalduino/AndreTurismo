@@ -11,7 +11,7 @@ using Models;
 
 namespace Repositories
 {
-    public class HotelRepository : IHotel
+    public class HotelRepository : IHotelRepository
     {
         private string Conn { get; set; }
 

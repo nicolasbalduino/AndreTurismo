@@ -12,7 +12,7 @@ namespace Services
 {
     public class HotelService
     {
-        IHotel hotelRepository;
+        IHotelRepository hotelRepository;
 
         public HotelService()
         {
