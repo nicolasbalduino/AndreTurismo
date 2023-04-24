@@ -6,135 +6,42 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Repositories;
 
 namespace Services
 {
     public class PackageService
     {
-        readonly string strConn = @"Server=(localdb)\MSSQLLocalDB;Integrated Security=true;AttachDbFileName=C:\Users\user\source\repos\prjAndreTurismo\AndreTurismo.mdf;";
-        readonly SqlConnection conn;
+        IPackageRepository packageRepository;
 
         public PackageService()
         {
-            conn = new SqlConnection(strConn);
-            conn.Open();
+            packageRepository = new PackageRepository();
         }
 
         public int Insert(Package package)
         {
-            //conn.Open();
-            string strInsert = "INSERT INTO Package (HotelId, TicketId, Price, ClientId) " +
-                                "VALUES(@HotelId, @TicketId, @Price, @ClientId);" +
-                                "SELECT CAST(scope_identity() as INT);";
-            SqlCommand commandInsert = new SqlCommand(strInsert, conn);
-            commandInsert.Parameters.Add(new SqlParameter("@HotelId", new HotelService().Insert(package.Hotel)));
-            commandInsert.Parameters.Add(new SqlParameter("@TicketId", new TicketService().Insert(package.Ticket)));
-            commandInsert.Parameters.Add(new SqlParameter("@Price", package.Price));
-            commandInsert.Parameters.Add(new SqlParameter("@ClientId", new ClientService().Insert(package.Client)));
-            var result = (int)commandInsert.ExecuteScalar();
-
-            conn.Close();
-            return result;
+            return packageRepository.Insert(package); 
         }
 
         public List<Package> FindAll()
         {
-            //conn.Open();
-            List<Package> packages = new();
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("SELECT p.Id, c.Name as client, cd.Description as destination, h.Name as hotel, p.Price");
-            sb.Append(" FROM Package p, Hotel h, Ticket t, Client c, Address d, City cd");
-            sb.Append(" WHERE (p.HotelId = h.Id) and (p.TicketId = t.Id) and (p.ClientId = c.Id) and (t.Destination = d.Id) and (d.IdCity = cd.Id)");
-
-            SqlCommand commandSelect = new(sb.ToString(), conn);
-            SqlDataReader dr = commandSelect.ExecuteReader();
-
-            while (dr.Read())
-            {
-                Package showPackage = new();
-
-                showPackage.Id = (int)dr["Id"];
-                showPackage.Client = new()
-                {
-                    Name = (string)dr["client"],
-                };
-                showPackage.Ticket = new()
-                {
-                    Destination = new()
-                    {
-                        City = new()
-                        {
-                            Description = (string)dr["destination"],
-                        }
-                    }
-                };
-                showPackage.Hotel = new()
-                {
-                    Name = (string)dr["hotel"]
-                };
-                showPackage.Price = (double)(decimal)dr["Price"];
-
-                packages.Add(showPackage);
-            }
-            conn.Close();
-            return packages;
+            return packageRepository.FindAll();
         }
 
         public Package FindById(int id)
         {
-            //conn.Open();
-            string strSelect = "SELECT p.Id, c.Name as client, cd.Description as destination, h.Name as hotel, p.Price" +
-                " FROM Package p, Hotel h, Ticket t, Client c, Address d, City cd" +
-                " WHERE (p.HotelId = h.Id) and (p.TicketId = t.Id) and (p.ClientId = c.Id) and " +
-                "(t.Destination = d.Id) and (d.IdCity = cd.Id) and (p.Id = @Id)";
-
-            SqlCommand commandSelect = new(strSelect, conn);
-            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
-            SqlDataReader dr = commandSelect.ExecuteReader();
-
-            Package showPackage = new();
-            if(dr.Read())
-            {
-                showPackage.Id = (int)dr["Id"];
-                showPackage.Client = new()
-                {
-                    Name = (string)dr["client"],
-                };
-                showPackage.Ticket = new()
-                {
-                    Destination = new()
-                    {
-                        City = new()
-                        {
-                            Description = (string)dr["destination"],
-                        }
-                    }
-                };
-                showPackage.Hotel = new()
-                {
-                    Name = (string)dr["hotel"]
-                };
-                showPackage.Price = (double)(decimal)dr["Price"];
-            }
-            conn.Close();
-            return showPackage;
+            return packageRepository.FindById(id);
         }
 
         public int Update(Package package)
         {
-            return 0;
+            return packageRepository.Update(package);
         }
 
         public int Delete(int id)
         {
-            //conn.Open();
-            string strDelete = "DELETE FROM Package WHERE Id = @Id;";
-            SqlCommand commandSelect = new SqlCommand(strDelete, conn);
-            commandSelect.Parameters.Add(new SqlParameter("@Id", id));
-            var result = commandSelect.ExecuteNonQuery();
-            conn.Close();
-            return result;
+            return packageRepository.Delete(id);
         }
     }
 }

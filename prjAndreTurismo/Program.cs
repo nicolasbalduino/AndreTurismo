@@ -142,6 +142,12 @@ Package package = new()
     Client = client
 };
 
+Package newPackage = new()
+{
+    Id = 1,
+    Price = 5000.00,
+};
+
 int op;
 do
 {
@@ -322,7 +328,7 @@ do
             if (new TicketController().Update(newTicket) > 0)
                 Console.WriteLine("SUCESSO! Registro atualizado com sucesso");
             else
-                Console.WriteLine("Ainda não implementado!");
+                Console.WriteLine("ERRO! Registro não atualizado");
             break;
         case 45:
             if (new TicketController().Delete(1) > 0)
@@ -351,10 +357,10 @@ do
                 Console.WriteLine("Nenhum registro encontrado!");
             break;
         case 54:
-            if (new PackageController().Update(package) > 0)
-                Console.WriteLine("SUCESSO! Registro deletado");
+            if (new PackageController().Update(newPackage) > 0)
+                Console.WriteLine("SUCESSO! Registro atualizado!");
             else
-                Console.WriteLine("Ainda não implementado!");
+                Console.WriteLine("ERRO! Registro não atualizado!");
             break;
         case 55:
             if (new PackageController().Delete(1) > 0)
